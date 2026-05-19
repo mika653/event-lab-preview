@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visualizer — Event Lab</title>
+    <meta name="description" content="Type in your event, see it live as an Event Lab site. Available across all three tiers.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { black: '#0A0A0A', white: '#FFFFFF' } },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        .smooth-transition { transition: all 0.3s ease-out; }
+        ::selection { background-color: #ec4899; color: white; }
+        .gradient-text {
+            background: linear-gradient(90deg, #f472b6, #a855f7, #f472b6);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% auto; animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: 200% center; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .float-slow { animation: float 6s ease-in-out infinite; }
+        .float-slower { animation: float 9s ease-in-out infinite; animation-delay: 1s; }
+
+        .viz-color-option input { display: none; }
+        .viz-color-option .swatch {
+            width: 32px; height: 32px; border-radius: 9999px;
+            border: 2px solid transparent; cursor: pointer;
+            transition: transform .2s ease, border-color .2s ease;
+        }
+        .viz-color-option input:checked + .swatch { border-color: #fff; transform: scale(1.15); }
+
+        .tier-toggle input { display: none; }
+        .tier-toggle label { cursor: pointer; transition: all .25s ease; }
+        .tier-toggle input:checked + label {
+            background: linear-gradient(90deg, #ec4899, #a855f7); color: #fff;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+<!-- ============================= NAV ============================= -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
+            <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">Visualizer</span>
+        </a>
+        <a href="index.html" class="inline-flex items-center gap-2 text-white/70 hover:text-white smooth-transition text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            Back to Event Lab
+        </a>
+    </div>
+</nav>
+
+<!-- ============================= VISUALIZER ============================= -->
+<section class="pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.1)_0%,transparent_60%)]"></div>
+    <div class="absolute top-20 left-10 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px] float-slow"></div>
+    <div class="absolute bottom-20 right-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[100px] float-slower"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full border border-pink-500/30 mb-6">
+                <span class="text-pink-400 text-sm font-medium tracking-wide">Available in all 3 tiers</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+                Meet the <span class="gradient-text">Visualizer.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+                Type in your event. See it live as an Event Lab site — before you sign anything. Toggle the tier to see how the experience scales.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8">
+            <!-- Controls -->
+            <div class="lg:col-span-2 p-6 md:p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl">
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-6">Step 1 · Tell us about your event</p>
+
+                <label class="block text-sm text-white/60 mb-2">Event name</label>
+                <input id="viz-name" type="text" value="Sunset Sessions" maxlength="40" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Tagline</label>
+                <input id="viz-tagline" type="text" value="Three nights on the harbour" maxlength="60" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Date</label>
+                <input id="viz-date" type="text" value="14–16 November 2026" maxlength="40" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Location</label>
+                <input id="viz-location" type="text" value="Central Harbourfront, Hong Kong" maxlength="60" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-6">
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-3">Step 2 · Pick a palette</p>
+                <div class="flex items-center gap-3 mb-6">
+                    <label class="viz-color-option"><input type="radio" name="viz-color" value="neon" checked><span class="swatch block" style="background:linear-gradient(135deg,#ec4899,#a855f7)"></span></label>
+                    <label class="viz-color-option"><input type="radio" name="viz-color" value="sunset"><span class="swatch block" style="background:linear-gradient(135deg,#fb923c,#ef4444)"></span></label>
+                    <label class="viz-color-option"><input type="radio" name="viz-color" value="forest"><span class="swatch block" style="background:linear-gradient(135deg,#10b981,#14b8a6)"></span></label>
+                    <label class="viz-color-option"><input type="radio" name="viz-color" value="royal"><span class="swatch block" style="background:linear-gradient(135deg,#3b82f6,#6366f1)"></span></label>
+                    <label class="viz-color-option"><input type="radio" name="viz-color" value="gold"><span class="swatch block" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"></span></label>
+                </div>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-3">Step 3 · Pick your tier</p>
+                <div class="tier-toggle grid grid-cols-3 gap-2 p-1 bg-black/40 border border-white/10 rounded-full mb-6">
+                    <input type="radio" name="viz-tier" id="tier-spark" value="spark">
+                    <label for="tier-spark" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Spark</label>
+                    <input type="radio" name="viz-tier" id="tier-showcase" value="showcase" checked>
+                    <label for="tier-showcase" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Showcase</label>
+                    <input type="radio" name="viz-tier" id="tier-spectacle" value="spectacle">
+                    <label for="tier-spectacle" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Spectacle</label>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Visualizer Preview" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Send this preview to my inbox</a>
+                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Discovery Call" class="block w-full text-center px-6 py-3 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Book a Discovery Call</a>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="lg:col-span-3">
+                <div class="bg-black border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
+                        <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+                        <div class="ml-4 flex-1 max-w-md mx-auto bg-black/40 rounded-md px-3 py-1 text-xs text-white/40 text-center" id="viz-url">sunsetsessions.events</div>
+                    </div>
+
+                    <div class="relative min-h-[480px] md:min-h-[600px]" id="viz-preview">
+                        <div class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-bold backdrop-blur-md" id="viz-tier-badge">Showcase Tier</div>
+
+                        <div class="relative h-72 md:h-96 overflow-hidden" id="viz-hero">
+                            <div class="absolute inset-0" id="viz-hero-bg" style="background:linear-gradient(135deg,#ec4899,#a855f7); opacity:.85"></div>
+                            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1400" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                                <p class="text-white/80 text-xs md:text-sm tracking-widest uppercase mb-3" id="viz-preview-date">14–16 November 2026</p>
+                                <h3 class="text-3xl md:text-6xl font-heading font-bold text-white mb-3" id="viz-preview-name">Sunset Sessions</h3>
+                                <p class="text-white/80 text-sm md:text-base italic mb-4" id="viz-preview-tagline">Three nights on the harbour</p>
+                                <p class="text-white/60 text-xs md:text-sm" id="viz-preview-location">Central Harbourfront, Hong Kong</p>
+                                <button class="mt-6 px-5 py-2 bg-white text-black text-xs font-semibold tracking-widest uppercase rounded-full">Get Tickets</button>
+                            </div>
+                        </div>
+
+                        <div class="p-6 md:p-8 space-y-6 bg-black">
+                            <div id="viz-lineup">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Lineup</p>
+                                <div class="grid grid-cols-3 gap-2 md:gap-3">
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 01</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 02</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 03</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 04</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 05</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">+18 more</div>
+                                </div>
+                            </div>
+
+                            <div id="viz-schedule">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Saturday Schedule</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">17:00 · Sunset DJ</span>
+                                        <span class="text-white/40 text-xs">Skyline Stage</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">19:30 · Headliner Set</span>
+                                        <span class="text-white/40 text-xs">Harbour Stage</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">22:00 · After Hours</span>
+                                        <span class="text-white/40 text-xs">Lantern Stage</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="viz-spectacle-extras">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-purple-300 mb-3">Spectacle features</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Interactive site map</p>
+                                        <p class="text-white/50">3 stages · 12 zones · live nav</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Multi-language</p>
+                                        <p class="text-white/50">EN · 繁中 · 简中</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Real-time updates</p>
+                                        <p class="text-white/50">Set changes · weather · alerts</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Build your schedule</p>
+                                        <p class="text-white/50">Personal lineup, calendar sync</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="viz-spark-minimal">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">A single, focused page</p>
+                                <p class="text-white/60 text-sm leading-relaxed">Spark keeps things deliberately tight: hero, program, tickets, sponsors, gallery — one beautiful long-scroll. Perfect for intimate moments that don't need a multi-page architecture.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-white/40 text-xs mt-4">Preview rendered live · all data is yours, none is saved.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="py-10 px-6 border-t border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <span class="font-heading font-bold text-white/70">Event Lab</span>
+            <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
+        </a>
+        <p class="text-white/30 text-sm">&copy; 2026 DFB Digital. All rights reserved.</p>
+        <a href="mailto:hello@dfbdigital.com" class="text-white/50 hover:text-white text-sm smooth-transition">hello@dfbdigital.com</a>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const palettes = {
+        neon:   { a:'#ec4899', b:'#a855f7' },
+        sunset: { a:'#fb923c', b:'#ef4444' },
+        forest: { a:'#10b981', b:'#14b8a6' },
+        royal:  { a:'#3b82f6', b:'#6366f1' },
+        gold:   { a:'#fbbf24', b:'#f59e0b' },
+    };
+    const slug = s => (s||'event').toLowerCase().replace(/[^a-z0-9]+/g,'').slice(0,24) || 'event';
+
+    function renderViz() {
+        const name = document.getElementById('viz-name').value || 'Your Event';
+        const tagline = document.getElementById('viz-tagline').value || '';
+        const date = document.getElementById('viz-date').value || '';
+        const location = document.getElementById('viz-location').value || '';
+        const color = document.querySelector('input[name="viz-color"]:checked').value;
+        const tier = document.querySelector('input[name="viz-tier"]:checked').value;
+        const p = palettes[color];
+
+        document.getElementById('viz-preview-name').textContent = name;
+        document.getElementById('viz-preview-tagline').textContent = tagline;
+        document.getElementById('viz-preview-date').textContent = date;
+        document.getElementById('viz-preview-location').textContent = location;
+        document.getElementById('viz-url').textContent = slug(name) + '.events';
+
+        document.getElementById('viz-hero-bg').style.background = `linear-gradient(135deg, ${p.a}, ${p.b})`;
+
+        document.querySelectorAll('#viz-lineup .aspect-square').forEach((el,i) => {
+            el.style.background = (i%2===0)
+                ? `linear-gradient(135deg, ${p.a}, ${p.b})`
+                : `linear-gradient(135deg, ${p.b}, ${p.a})`;
+        });
+
+        const lineup = document.getElementById('viz-lineup');
+        const schedule = document.getElementById('viz-schedule');
+        const spectacle = document.getElementById('viz-spectacle-extras');
+        const sparkMin = document.getElementById('viz-spark-minimal');
+        const badge = document.getElementById('viz-tier-badge');
+
+        if (tier === 'spark') {
+            lineup.style.display = 'none'; schedule.style.display = 'none';
+            spectacle.style.display = 'none'; sparkMin.style.display = 'block';
+            badge.textContent = 'Spark Tier';
+        } else if (tier === 'showcase') {
+            lineup.style.display = 'block'; schedule.style.display = 'block';
+            spectacle.style.display = 'none'; sparkMin.style.display = 'none';
+            badge.textContent = 'Showcase Tier';
+        } else {
+            lineup.style.display = 'block'; schedule.style.display = 'block';
+            spectacle.style.display = 'block'; sparkMin.style.display = 'none';
+            badge.textContent = 'Spectacle Tier';
+        }
+        badge.style.background = `linear-gradient(90deg, ${p.a}, ${p.b})`;
+        badge.style.color = '#fff';
+    }
+
+    document.querySelectorAll('#viz-name, #viz-tagline, #viz-date, #viz-location').forEach(el => {
+        el.addEventListener('input', renderViz);
+    });
+    document.querySelectorAll('input[name="viz-color"], input[name="viz-tier"]').forEach(el => {
+        el.addEventListener('change', renderViz);
+    });
+    renderViz();
+})();
+</script>
+
+</body>
+</html>
