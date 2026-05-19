@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,24 +16,19 @@
                 extend: {
                     colors: { brand: { black: '#0A0A0A', white: '#FFFFFF' } },
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
+                        sans: ['Inter Tight', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Inter Tight', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
         .smooth-transition { transition: all 0.3s ease-out; }
         ::selection { background-color: #ec4899; color: white; }
-        .gradient-text {
-            background: linear-gradient(90deg, #f472b6, #a855f7, #f472b6);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            background-size: 200% auto; animation: shimmer 4s linear infinite;
-        }
-        @keyframes shimmer { to { background-position: 200% center; } }
+        .gradient-text { color: #FF2D6F; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         .float-slow { animation: float 6s ease-in-out infinite; }
         .float-slower { animation: float 9s ease-in-out infinite; animation-delay: 1s; }
@@ -59,7 +54,7 @@
 <nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <a href="index.html" class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <div class="w-9 h-9 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white">EL</div>
             <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
             <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">Visualizer</span>
         </a>
@@ -72,9 +67,7 @@
 
 <!-- ============================= VISUALIZER ============================= -->
 <section class="pt-32 pb-24 px-6 lg:px-12 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.1)_0%,transparent_60%)]"></div>
-    <div class="absolute top-20 left-10 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px] float-slow"></div>
-    <div class="absolute bottom-20 right-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[100px] float-slower"></div>
+    <div class="absolute inset-0 opacity-[0.06]" style="background-image:linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px); background-size:48px 48px;"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-12">
@@ -126,7 +119,7 @@
                 </div>
 
                 <div class="space-y-3">
-                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Visualizer Preview" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Send this preview to my inbox</a>
+                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Visualizer Preview" class="block w-full text-center px-6 py-3 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Send this preview to my inbox</a>
                     <a href="mailto:hello@dfbdigital.com?subject=Event Lab Discovery Call" class="block w-full text-center px-6 py-3 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Book a Discovery Call</a>
                 </div>
             </div>
@@ -159,31 +152,49 @@
 
                         <div class="p-6 md:p-8 space-y-6 bg-black">
                             <div id="viz-lineup">
-                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Lineup</p>
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Lineup · 24 acts</p>
                                 <div class="grid grid-cols-3 gap-2 md:gap-3">
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 01</div>
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 02</div>
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 03</div>
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 04</div>
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 05</div>
-                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">+18 more</div>
+                                    <div data-accent="top" class="aspect-square rounded-xl bg-white/5 border-t-2 border-[#FF2D6F] flex flex-col items-center justify-center text-center p-2">
+                                        <span data-accent="label" class="text-[9px] tracking-widest uppercase text-[#FF2D6F] font-semibold">Headliner</span>
+                                        <span class="text-white/90 text-xs md:text-sm font-heading font-bold mt-1">Your top act</span>
+                                    </div>
+                                    <div data-accent="top" class="aspect-square rounded-xl bg-white/5 border-t-2 border-[#FF2D6F] flex flex-col items-center justify-center text-center p-2">
+                                        <span data-accent="label" class="text-[9px] tracking-widest uppercase text-[#FF2D6F] font-semibold">Headliner</span>
+                                        <span class="text-white/90 text-xs md:text-sm font-heading font-bold mt-1">Co-headline</span>
+                                    </div>
+                                    <div class="aspect-square rounded-xl bg-white/5 border-t border-white/20 flex flex-col items-center justify-center text-center p-2">
+                                        <span class="text-[9px] tracking-widest uppercase text-white/40 font-semibold">Support</span>
+                                        <span class="text-white/80 text-xs md:text-sm font-heading font-bold mt-1">Featured act</span>
+                                    </div>
+                                    <div class="aspect-square rounded-xl bg-white/5 border-t border-white/20 flex flex-col items-center justify-center text-center p-2">
+                                        <span class="text-[9px] tracking-widest uppercase text-white/40 font-semibold">Support</span>
+                                        <span class="text-white/80 text-xs md:text-sm font-heading font-bold mt-1">Live band</span>
+                                    </div>
+                                    <div class="aspect-square rounded-xl bg-white/5 border-t border-white/20 flex flex-col items-center justify-center text-center p-2">
+                                        <span class="text-[9px] tracking-widest uppercase text-white/40 font-semibold">DJ set</span>
+                                        <span class="text-white/80 text-xs md:text-sm font-heading font-bold mt-1">Late night</span>
+                                    </div>
+                                    <div class="aspect-square rounded-xl bg-white/[0.03] border border-dashed border-white/15 flex items-center justify-center text-center p-2">
+                                        <span class="text-white/40 text-xs font-heading">+ 19 more</span>
+                                    </div>
                                 </div>
+                                <p class="text-[10px] text-white/30 mt-2 italic">Filled with your artists. Filterable by stage, day, genre in Showcase &amp; Spectacle.</p>
                             </div>
 
                             <div id="viz-schedule">
-                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Saturday Schedule</p>
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Saturday · selected sets</p>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
-                                        <span class="text-white/80">17:00 · Sunset DJ</span>
-                                        <span class="text-white/40 text-xs">Skyline Stage</span>
+                                        <span class="text-white/80"><span class="tabular-nums text-white/50 mr-3">17:00</span>Your opener</span>
+                                        <span class="text-white/40 text-[10px] tracking-widest uppercase">Stage 01</span>
                                     </div>
                                     <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
-                                        <span class="text-white/80">19:30 · Headliner Set</span>
-                                        <span class="text-white/40 text-xs">Harbour Stage</span>
+                                        <span class="text-white/80"><span class="tabular-nums text-white/50 mr-3">19:30</span>Co-headliner</span>
+                                        <span class="text-white/40 text-[10px] tracking-widest uppercase">Stage 02</span>
                                     </div>
-                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
-                                        <span class="text-white/80">22:00 · After Hours</span>
-                                        <span class="text-white/40 text-xs">Lantern Stage</span>
+                                    <div data-accent="left" class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm border-l-2 border-[#FF2D6F]">
+                                        <span class="text-white"><span class="tabular-nums text-white/60 mr-3">21:30</span>Headliner</span>
+                                        <span class="text-white/40 text-[10px] tracking-widest uppercase">Main</span>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +238,7 @@
 <footer class="py-10 px-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <a href="index.html" class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <div class="w-8 h-8 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
             <span class="font-heading font-bold text-white/70">Event Lab</span>
             <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
         </a>
@@ -264,11 +275,10 @@
 
         document.getElementById('viz-hero-bg').style.background = `linear-gradient(135deg, ${p.a}, ${p.b})`;
 
-        document.querySelectorAll('#viz-lineup .aspect-square').forEach((el,i) => {
-            el.style.background = (i%2===0)
-                ? `linear-gradient(135deg, ${p.a}, ${p.b})`
-                : `linear-gradient(135deg, ${p.b}, ${p.a})`;
-        });
+        // Recolor accent borders only (preserve card structure)
+        document.querySelectorAll('#viz-lineup [data-accent="top"]').forEach(el => { el.style.borderTopColor = p.a; });
+        document.querySelectorAll('#viz-lineup [data-accent="label"]').forEach(el => { el.style.color = p.a; });
+        document.querySelectorAll('#viz-schedule [data-accent="left"]').forEach(el => { el.style.borderLeftColor = p.a; });
 
         const lineup = document.getElementById('viz-lineup');
         const schedule = document.getElementById('viz-schedule');

@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter+Tight:wght@300;400;500;600&family=IBM+Plex+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,10 +22,10 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
+                        sans: ['Inter Tight', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
-                        tc: ['Noto Sans TC', 'sans-serif'],
+                        tc: ['IBM Plex Sans TC', 'sans-serif'],
                     }
                 }
             }
@@ -33,13 +33,13 @@
     </script>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter Tight', sans-serif;
             background-color: #0A0A0A;
             color: #FFFFFF;
             overflow-x: hidden;
         }
         h1, h2, h3, h4, .heading-font {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
         }
         .smooth-transition {
             transition: all 0.3s ease-out;
@@ -48,17 +48,7 @@
             background-color: #ec4899;
             color: white;
         }
-        .gradient-text {
-            background: linear-gradient(90deg, #f472b6, #a855f7, #f472b6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shimmer 4s linear infinite;
-        }
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
+        .gradient-text { color: #FF2D6F; }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
@@ -132,12 +122,7 @@
         /* Aspect helper for older browsers */
         .aspect-poster { aspect-ratio: 3 / 4; }
 
-        /* Glow pulse */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 30px rgba(236,72,153,.3), 0 0 60px rgba(168,85,247,.2); }
-            50% { box-shadow: 0 0 50px rgba(236,72,153,.5), 0 0 90px rgba(168,85,247,.35); }
-        }
-        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .pulse-glow { box-shadow: 0 0 0 1px rgba(255,45,111,0.4), 0 16px 48px -16px rgba(255,45,111,0.3); }
     </style>
 </head>
 <body class="bg-brand-black text-white">
@@ -146,7 +131,7 @@
 <nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <a href="#top" class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <div class="w-9 h-9 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white">EL</div>
             <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
             <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">by DFB Digital</span>
         </a>
@@ -156,7 +141,7 @@
             <a href="#team" class="text-white/70 hover:text-white smooth-transition">The Team</a>
             <a href="visualizer.html" class="text-white/70 hover:text-white smooth-transition">Visualizer</a>
             <a href="neon-harbour.html" class="text-white/70 hover:text-white smooth-transition">Showcase</a>
-            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="px-5 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs font-semibold uppercase tracking-widest rounded-full smooth-transition">Get in Touch</a>
+            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="px-5 py-2 bg-[#FF2D6F] hover:bg-[#E91E62] text-white text-xs font-semibold uppercase tracking-widest rounded-full smooth-transition">Get in Touch</a>
         </div>
     </div>
 </nav>
@@ -166,8 +151,8 @@
     <div class="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=2000" alt="Concert atmosphere" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-pink-900/30 via-purple-900/20 to-black/50"></div>
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,45,111,0.18),transparent_55%)]"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-[#FF2D6F]"></div>
     </div>
     <div class="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-pink-500/20 rounded-full blur-[100px] md:blur-[128px] animate-pulse"></div>
     <div class="absolute bottom-1/4 right-1/4 w-48 h-48 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-[100px] md:blur-[128px] animate-pulse" style="animation-delay:1s"></div>
@@ -185,7 +170,7 @@
             High-impact event websites that inform, engage, and convert—whether it's a conference, launch, community event, or private gathering. From schedules and speakers to registration and post-event content, everything lives in one focused digital experience.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">
+            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">
                 <span>Start Your Event</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 smooth-transition"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
@@ -222,21 +207,21 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
             <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-[#FF2D6F] flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 </div>
                 <h3 class="text-2xl font-heading font-bold mb-3">Pre-Event</h3>
                 <p class="text-white/60 leading-relaxed">Build excitement till the big day. Tease lineups, drop the schedule, push tickets, capture leads, generate buzz.</p>
             </div>
             <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-[#FF2D6F] flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                 </div>
                 <h3 class="text-2xl font-heading font-bold mb-3">Event Proper</h3>
                 <p class="text-white/60 leading-relaxed">Guide guests in real time. Live schedule, set time changes, maps, FAQs — everything they need on the phone in their pocket.</p>
             </div>
             <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-[#FF2D6F] flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M21 12A9 9 0 0 0 6 5.3L3 8"></path><path d="M21 22v-6h-6"></path><path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"></path></svg>
                 </div>
                 <h3 class="text-2xl font-heading font-bold mb-3">Post-Event</h3>
@@ -283,7 +268,7 @@
             <div class="group relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition flex flex-col">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center text-white">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500 flex items-center justify-center text-white">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                         </div>
                         <div>
@@ -315,12 +300,12 @@
 
             <!-- SHOWCASE -->
             <div class="group relative p-8 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-pink-500/5 backdrop-blur-sm border border-pink-500/40 rounded-3xl smooth-transition flex flex-col lg:-mt-4 pulse-glow">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#FF2D6F] rounded-full">
                     <span class="text-white text-xs font-semibold tracking-wider uppercase">Most Popular</span>
                 </div>
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white">
+                        <div class="w-12 h-12 rounded-xl bg-[#FF2D6F] flex items-center justify-center text-white">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         </div>
                         <div>
@@ -349,14 +334,14 @@
                     <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Meta pixel + retargeting setup</li>
                     <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> 3 months post-launch support</li>
                 </ul>
-                <a href="visualizer.html" class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Visualize Showcase</a>
+                <a href="visualizer.html" class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Visualize Showcase</a>
             </div>
 
             <!-- SPECTACLE -->
             <div class="group relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:border-purple-500/50 hover:bg-white/10 smooth-transition flex flex-col">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white">
+                        <div class="w-12 h-12 rounded-xl bg-purple-600 flex items-center justify-center text-white">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
                         </div>
                         <div>
@@ -492,7 +477,7 @@
         <p class="text-xl text-white/60 mb-12 max-w-2xl mx-auto">
             Let's discuss your vision and bring it to life with precision and creativity.
         </p>
-        <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition group">
+        <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="inline-flex items-center gap-3 px-10 py-5 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition group">
             <span>Get in Touch</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 smooth-transition"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
@@ -503,7 +488,7 @@
 <footer class="py-10 px-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <div class="w-8 h-8 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
             <span class="font-heading font-bold text-white/70">Event Lab</span>
             <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
         </div>

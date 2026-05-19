@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@300;400;500;600&family=IBM+Plex+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,29 +16,24 @@
                 extend: {
                     colors: { brand: { black: '#0A0A0A', white: '#FFFFFF' } },
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
-                        tc: ['Noto Sans TC', 'sans-serif'],
+                        sans: ['Inter Tight', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                        tc: ['IBM Plex Sans TC', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Inter Tight', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
         .smooth-transition { transition: all 0.3s ease-out; }
         ::selection { background-color: #ec4899; color: white; }
-        .gradient-text {
-            background: linear-gradient(90deg, #f472b6, #a855f7, #f472b6);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            background-size: 200% auto; animation: shimmer 4s linear infinite;
-        }
-        @keyframes shimmer { to { background-position: 200% center; } }
+        .gradient-text { color: #FF2D6F; }
         .skyline {
             background:
-                linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,.85) 70%, #0a0a0a 100%),
-                url('https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&q=80&w=2000');
+                linear-gradient(180deg, rgba(12,10,20,0) 0%, rgba(12,10,20,.78) 75%, #0c0a14 100%),
+                url('https://images.unsplash.com/photo-1576788903709-c8b3a9b3a73a?auto=format&fit=crop&q=80&w=2000');
             background-size: cover; background-position: center;
         }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -69,7 +64,7 @@
 <nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <a href="index.html" class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <div class="w-9 h-9 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white">EL</div>
             <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
             <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">Showcase</span>
         </a>
@@ -102,21 +97,22 @@
 ============================================================================ -->
 <div id="view-spark" class="tier-view">
 
-    <!-- Spark hero -->
-    <section class="relative skyline min-h-[80vh] flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/15 backdrop-blur-md rounded-full border border-pink-500/30 mb-8">
-                <span class="text-pink-300 text-xs tracking-widest uppercase font-semibold">Spark Tier · Single Page</span>
+    <!-- Spark hero (text-only on black — lean tier) -->
+    <section class="relative bg-brand-black min-h-[80vh] flex items-center justify-center overflow-hidden border-b border-white/5">
+        <div class="absolute inset-x-0 top-0 h-px bg-[#FF2D6F]/30"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-24">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-[#FF2D6F]/60 rounded-full mb-10">
+                <span class="text-[#FF2D6F] text-xs tracking-widest uppercase font-semibold">Spark · Single Page</span>
             </div>
-            <p class="text-pink-300 font-tc text-base tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
-            <h1 class="text-5xl sm:text-6xl md:text-8xl font-heading font-extrabold leading-none mb-6">
+            <p class="text-white/50 font-tc text-base tracking-[0.3em] uppercase mb-6">霓 虹 港 灣</p>
+            <h1 class="text-5xl sm:text-6xl md:text-8xl font-heading font-extrabold leading-none mb-8">
                 <span class="block text-white">NEON</span>
-                <span class="block gradient-text">HARBOUR</span>
+                <span class="block text-[#FF2D6F]">HARBOUR</span>
             </h1>
-            <p class="text-white/70 text-base md:text-lg mb-6">A 3-Day Music &amp; Arts Festival</p>
-            <p class="text-white/60 text-lg md:text-xl mb-10">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
-            <button class="px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+            <div class="w-12 h-px bg-white/30 mx-auto mb-8"></div>
+            <p class="text-white/60 text-sm md:text-base tracking-widest uppercase mb-3">A 3-Day Music &amp; Arts Festival</p>
+            <p class="text-white/80 text-lg md:text-xl mb-12">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
+            <button class="px-10 py-4 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Get Tickets</button>
         </div>
     </section>
 
@@ -166,7 +162,7 @@
             <div class="p-8 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-3xl">
                 <p class="text-5xl md:text-6xl font-heading font-bold mb-2">HK$1,980</p>
                 <p class="text-white/50 text-sm mb-8">All three nights, all stages.</p>
-                <button class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Buy Now</button>
+                <button class="w-full md:w-auto px-10 py-4 bg-[#FF2D6F] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Buy Now</button>
                 <p class="text-white/40 text-xs mt-6">Day passes from HK$880. See full pricing at the door.</p>
             </div>
         </div>
@@ -210,8 +206,8 @@
         <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
 
         <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-20">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/15 backdrop-blur-md rounded-full border border-pink-500/30 mb-8">
-                <span class="text-pink-300 text-xs tracking-widest uppercase font-semibold">Showcase Tier · Multi-Page Festival Site</span>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FF2D6F] rounded-full mb-8">
+                <span class="text-white text-xs tracking-widest uppercase font-semibold">Showcase · Multi-Page Festival Site</span>
             </div>
             <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
             <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
@@ -222,7 +218,7 @@
             <p class="text-white/60 text-lg md:text-xl mb-12">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+                <button class="px-8 py-4 bg-[#FF2D6F] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
                 <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">See the Lineup</button>
             </div>
 
@@ -323,7 +319,7 @@
                 <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
                 <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h2>
                 <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
-                    <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
+                    <button class="px-5 py-2 rounded-full bg-[#FF2D6F] text-white">Fri</button>
                     <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
                     <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
                 </div>
@@ -382,7 +378,7 @@
                     <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
                 </div>
                 <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
-                    <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
+                    <span class="absolute -top-3 right-4 px-3 py-1 bg-[#FF2D6F] rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
                     <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
                     <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
                     <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
@@ -392,7 +388,7 @@
                         <li>Free water refills</li>
                         <li>Re-entry privileges</li>
                     </ul>
-                    <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+                    <button class="w-full px-4 py-2 bg-[#FF2D6F] text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
                 </div>
                 <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
                     <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
@@ -524,8 +520,9 @@
         </div>
 
         <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-20">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/15 backdrop-blur-md rounded-full border border-purple-500/30 mb-8">
-                <span class="text-purple-300 text-xs tracking-widest uppercase font-semibold">Spectacle Tier · Full Digital Ecosystem</span>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-600 rounded-full mb-8">
+                <span class="w-2 h-2 bg-white rounded-full live-dot"></span>
+                <span class="text-white text-xs tracking-widest uppercase font-semibold">Spectacle · Full Digital Ecosystem</span>
             </div>
             <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
             <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
@@ -536,7 +533,7 @@
             <p class="text-white/60 text-lg md:text-xl mb-12">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+                <button class="px-8 py-4 bg-[#FF2D6F] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
                 <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Build My Schedule</button>
             </div>
 
@@ -656,42 +653,59 @@
                     <span class="text-xs font-semibold tracking-widest uppercase bg-black/60 px-2 py-1 rounded">Lantern</span>
                 </div>
                 <!-- Vendors -->
-                <div class="absolute top-[20%] right-[15%] text-white/50 text-[10px]">🍜 Food Street</div>
-                <div class="absolute bottom-[30%] right-[10%] text-white/50 text-[10px]">🚇 Exit A2</div>
-                <div class="absolute top-[70%] left-[15%] text-white/50 text-[10px]">📷 Photo Wall</div>
-                <div class="absolute top-[40%] left-[55%] text-white/50 text-[10px]">🚻 Restrooms</div>
+                <div class="absolute top-[20%] right-[15%] flex items-center gap-1.5 text-white/60 text-[10px] tracking-widest uppercase">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M5 11a7 7 0 0 1 14 0"/><path d="M3 15h18"/><path d="M7 19h10"/></svg>
+                    Food
+                </div>
+                <div class="absolute bottom-[30%] right-[10%] flex items-center gap-1.5 text-white/60 text-[10px] tracking-widest uppercase">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+                    Exit A2
+                </div>
+                <div class="absolute top-[70%] left-[15%] flex items-center gap-1.5 text-white/60 text-[10px] tracking-widest uppercase">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3"/><path d="M8 6l1-2h6l1 2"/></svg>
+                    Photo
+                </div>
+                <div class="absolute top-[40%] left-[55%] flex items-center gap-1.5 text-white/60 text-[10px] tracking-widest uppercase">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="2"/><circle cx="15" cy="6" r="2"/><path d="M7 22v-6h4v6"/><path d="M13 22v-6h4v6"/><path d="M7 16v-4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4"/></svg>
+                    WC
+                </div>
             </div>
             <p class="text-center text-white/40 text-xs mt-4">Static preview · Full version is live and interactive during the event.</p>
         </div>
     </section>
 
-    <!-- Spectacle lineup marquee -->
+    <!-- Spectacle lineup marquee (with JUST ADDED phase 2 tags) -->
     <section class="py-16 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 overflow-hidden border-y border-white/10">
         <div class="text-center mb-8 px-6">
-            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup</p>
-            <h2 class="text-3xl md:text-4xl font-heading font-bold">Phase 1 announced</h2>
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup · Phase 2</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold">Four more just dropped</h2>
         </div>
-        <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold">
+        <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold items-center">
             <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
             <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
-            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
-            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="inline-flex items-center gap-3"><span class="text-white">TYPHOON SIGNAL 8</span><span class="text-[10px] tracking-widest uppercase px-2 py-0.5 bg-purple-600 text-white rounded font-semibold">Just added</span></span><span class="text-pink-400">·</span>
+            <span class="text-white/60">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="inline-flex items-center gap-3"><span class="text-white">MONG KOK SOUNDSYSTEM</span><span class="text-[10px] tracking-widest uppercase px-2 py-0.5 bg-purple-600 text-white rounded font-semibold">Just added</span></span><span class="text-pink-400">·</span>
+            <span class="text-white/60">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
             <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
-            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
-            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
+            <!-- duplicate for seamless loop -->
             <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
             <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
-            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
-            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="inline-flex items-center gap-3"><span class="text-white">TYPHOON SIGNAL 8</span><span class="text-[10px] tracking-widest uppercase px-2 py-0.5 bg-purple-600 text-white rounded font-semibold">Just added</span></span><span class="text-pink-400">·</span>
+            <span class="text-white/60">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="inline-flex items-center gap-3"><span class="text-white">MONG KOK SOUNDSYSTEM</span><span class="text-[10px] tracking-widest uppercase px-2 py-0.5 bg-purple-600 text-white rounded font-semibold">Just added</span></span><span class="text-pink-400">·</span>
+            <span class="text-white/60">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
             <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
-            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
-            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
-            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
         </div>
     </section>
 
@@ -702,7 +716,7 @@
                 <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
                 <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h2>
                 <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
-                    <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
+                    <button class="px-5 py-2 rounded-full bg-[#FF2D6F] text-white">Fri</button>
                     <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
                     <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
                 </div>
@@ -742,7 +756,7 @@
                     <h3 class="font-heading font-bold text-xl md:text-2xl mb-1">Build your own schedule</h3>
                     <p class="text-white/60 text-sm">Tap + Add on any set. Sync to Apple, Google, or your calendar of choice.</p>
                 </div>
-                <button class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition whitespace-nowrap">My Schedule</button>
+                <button class="px-6 py-3 bg-[#FF2D6F] text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition whitespace-nowrap">My Schedule</button>
             </div>
         </div>
     </section>
@@ -769,7 +783,7 @@
                     <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
                 </div>
                 <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
-                    <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
+                    <span class="absolute -top-3 right-4 px-3 py-1 bg-[#FF2D6F] rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
                     <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
                     <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
                     <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
@@ -779,7 +793,7 @@
                         <li>Free water refills</li>
                         <li>Re-entry privileges</li>
                     </ul>
-                    <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+                    <button class="w-full px-4 py-2 bg-[#FF2D6F] text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
                 </div>
                 <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
                     <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
@@ -922,7 +936,7 @@
 <!-- ============================= BACK TO EVENT LAB ============================= -->
 <section class="py-20 px-6 lg:px-12 text-center bg-brand-black border-t border-white/10">
     <p class="text-white/40 text-sm mb-4">All three views above are the same Neon Harbour Festival — built at three different tiers.</p>
-    <a href="index.html#tiers" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">
+    <a href="index.html#tiers" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FF2D6F] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">
         Compare all three tiers
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
     </a>
@@ -932,7 +946,7 @@
 <footer class="py-10 px-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <a href="index.html" class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <div class="w-8 h-8 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
             <span class="font-heading font-bold text-white/70">Event Lab</span>
             <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
         </a>
