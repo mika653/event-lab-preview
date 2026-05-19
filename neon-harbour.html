@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Harbour Festival 2026 — Event Lab Showcase</title>
-    <meta name="description" content="A fictional Hong Kong festival concept demonstrating the Event Lab Spectacle tier. 14–16 November 2026, Central Harbourfront.">
+    <title>Neon Harbour Festival — Event Lab Showcase</title>
+    <meta name="description" content="One fictional Hong Kong festival, three tier-views. See how Event Lab Spark, Showcase, and Spectacle each present the same event.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +44,23 @@
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
         .aspect-poster { aspect-ratio: 3 / 4; }
+
+        /* Tier tabs */
+        .tier-tab {
+            border-bottom: 2px solid transparent;
+            color: rgba(255,255,255,0.5);
+            transition: all .25s ease;
+        }
+        .tier-tab:hover { color: rgba(255,255,255,0.9); }
+        .tier-tab.active {
+            color: #fff;
+            border-bottom-color: #ec4899;
+        }
+        @keyframes ticker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .live-dot { animation: ticker 1.5s ease-in-out infinite; }
     </style>
 </head>
 <body class="bg-brand-black text-white">
@@ -63,309 +80,848 @@
     </div>
 </nav>
 
-<!-- ============================= SHOWCASE CONTEXT BANNER ============================= -->
-<div class="pt-20 bg-black/60 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-3 flex flex-col md:flex-row items-center justify-between gap-2 text-sm">
-        <p class="text-white/40">
-            <span class="text-pink-400 font-semibold">Showcase Demo:</span>
-            A fictional Hong Kong festival concept demonstrating the Event Lab Spectacle tier.
-        </p>
-        <p class="text-white/30 text-xs tracking-widest uppercase">For demonstration only</p>
+<!-- ============================= CONTEXT + TIER TABS ============================= -->
+<div class="pt-20 bg-black/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-40" style="top:5rem">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-1">Showcase</p>
+                <p class="text-white/80 text-sm md:text-base">One fictional Hong Kong festival, three tier-views. <span class="text-white/50">Same event, different scope.</span></p>
+            </div>
+            <div class="flex items-center gap-1 bg-white/5 border border-white/10 rounded-full p-1">
+                <button class="tier-tab active px-4 md:px-6 py-2 text-xs md:text-sm font-semibold tracking-widest uppercase rounded-full" data-tier="spark">Spark</button>
+                <button class="tier-tab px-4 md:px-6 py-2 text-xs md:text-sm font-semibold tracking-widest uppercase rounded-full" data-tier="showcase">Showcase</button>
+                <button class="tier-tab px-4 md:px-6 py-2 text-xs md:text-sm font-semibold tracking-widest uppercase rounded-full" data-tier="spectacle">Spectacle</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- ============================= HERO ============================= -->
-<section class="relative skyline min-h-[90vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
+<!-- ============================================================================
+     VIEW 1: SPARK — single-page, lean, ticket-driven (like Winter Lantern)
+============================================================================ -->
+<div id="view-spark" class="tier-view">
 
-    <div class="absolute top-8 right-6 md:right-12 z-10 flex items-center gap-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 p-1">
-        <button class="px-3 py-1 text-xs rounded-full bg-white text-black font-semibold">EN</button>
-        <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">繁中</button>
-        <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">简中</button>
-    </div>
-
-    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-20">
-        <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
-        <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
-            <span class="block text-white">NEON</span>
-            <span class="block gradient-text">HARBOUR</span>
-        </h1>
-        <p class="text-white/70 text-base md:text-xl tracking-[0.2em] uppercase mb-8">A 3-Day Music &amp; Arts Festival</p>
-        <p class="text-white/60 text-lg md:text-xl mb-12 max-w-2xl mx-auto">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
-            <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">See the Lineup</button>
+    <!-- Spark hero -->
+    <section class="relative skyline min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-20">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/15 backdrop-blur-md rounded-full border border-pink-500/30 mb-8">
+                <span class="text-pink-300 text-xs tracking-widest uppercase font-semibold">Spark Tier · Single Page</span>
+            </div>
+            <p class="text-pink-300 font-tc text-base tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
+            <h1 class="text-5xl sm:text-6xl md:text-8xl font-heading font-extrabold leading-none mb-6">
+                <span class="block text-white">NEON</span>
+                <span class="block gradient-text">HARBOUR</span>
+            </h1>
+            <p class="text-white/70 text-base md:text-lg mb-6">A 3-Day Music &amp; Arts Festival</p>
+            <p class="text-white/60 text-lg md:text-xl mb-10">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
+            <button class="px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
         </div>
+    </section>
 
-        <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
-            <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
-                <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-days">—</p>
-                <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Days</p>
-            </div>
-            <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
-                <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-hours">—</p>
-                <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Hours</p>
-            </div>
-            <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
-                <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-mins">—</p>
-                <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Mins</p>
-            </div>
-            <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
-                <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-secs">—</p>
-                <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Secs</p>
-            </div>
+    <!-- Spark about -->
+    <section class="py-20 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">About</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Three nights on the harbour.</h2>
+            <p class="text-white/70 text-lg leading-relaxed">
+                Music, art, and food across three stages at Central Harbourfront. Local and international acts. One ticket, three days, one of the best views in Hong Kong. Tickets on sale now.
+            </p>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ============================= STAGES ============================= -->
-<section class="py-24 px-6 lg:px-12 bg-brand-black">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Three Stages</p>
-            <h2 class="text-4xl md:text-5xl font-heading font-bold">Skyline. Harbour. <span class="gradient-text">Lantern.</span></h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="group relative aspect-poster rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                <div class="absolute inset-x-0 bottom-0 p-6">
-                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Main Stage</p>
-                    <h3 class="text-3xl font-heading font-bold mb-2">Skyline</h3>
-                    <p class="text-white/70 text-sm">Headliners and international acts, facing Victoria Harbour.</p>
+    <!-- Spark program (single block) -->
+    <section class="py-20 px-6 lg:px-12 bg-brand-black border-t border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Program</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">What to expect.</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl text-center">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Friday</p>
+                    <h3 class="font-heading font-bold text-xl mb-2">Opening Night</h3>
+                    <p class="text-white/60 text-sm">Local headliners, sunset DJs, harbour fireworks.</p>
                 </div>
-            </div>
-            <div class="group relative aspect-poster rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                <div class="absolute inset-x-0 bottom-0 p-6">
-                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Electronic</p>
-                    <h3 class="text-3xl font-heading font-bold mb-2">Harbour</h3>
-                    <p class="text-white/70 text-sm">House, techno, and drum &amp; bass — running till 02:00.</p>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl text-center">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Saturday</p>
+                    <h3 class="font-heading font-bold text-xl mb-2">Main Event</h3>
+                    <p class="text-white/60 text-sm">International headliners across all three stages.</p>
                 </div>
-            </div>
-            <div class="group relative aspect-poster rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                <div class="absolute inset-x-0 bottom-0 p-6">
-                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Acoustic &amp; Arts</p>
-                    <h3 class="text-3xl font-heading font-bold mb-2">Lantern</h3>
-                    <p class="text-white/70 text-sm">Sundown sessions, spoken word, and local art installations.</p>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl text-center">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Sunday</p>
+                    <h3 class="font-heading font-bold text-xl mb-2">Closing Day</h3>
+                    <p class="text-white/60 text-sm">Acoustic sessions, art walks, farewell party.</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ============================= LINEUP MARQUEE ============================= -->
-<section class="py-16 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 overflow-hidden border-y border-white/10">
-    <div class="text-center mb-8 px-6">
-        <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup</p>
-        <h2 class="text-3xl md:text-4xl font-heading font-bold">Phase 1 announced</h2>
-    </div>
-    <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold">
-        <span class="text-white">SAINT TANG</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">KOWLOON KIDS</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">海邊的瑪嘉烈</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">NEON RIVER</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">DJ TYPHOON</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">VELVET KING</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">電光少女</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">PIER 8 COLLECTIVE</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">MIDNIGHT JUNK</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">CHA CHAAN ORCHESTRA</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">SAINT TANG</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">KOWLOON KIDS</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">海邊的瑪嘉烈</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">NEON RIVER</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">DJ TYPHOON</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">VELVET KING</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">電光少女</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">PIER 8 COLLECTIVE</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white">MIDNIGHT JUNK</span>
-        <span class="text-pink-400">·</span>
-        <span class="text-white/60">CHA CHAAN ORCHESTRA</span>
-        <span class="text-pink-400">·</span>
-    </div>
-</section>
-
-<!-- ============================= SCHEDULE ============================= -->
-<section class="py-24 px-6 lg:px-12 bg-brand-black">
-    <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
-            <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h2>
-            <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
-                <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
-                <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
-                <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Skyline Stage</p>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">Neon River</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">電光少女</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Kowloon Kids</span></li>
-                    <li class="flex justify-between"><span class="text-white/60 font-semibold">21:30</span><span class="text-pink-400 font-semibold">Saint Tang ★</span></li>
-                </ul>
-            </div>
-            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Harbour Stage</p>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between"><span class="text-white/60">16:30</span><span class="text-white">Pier 8 Collective</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">18:00</span><span class="text-white">DJ Typhoon</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Midnight Junk</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">22:00</span><span class="text-white">Velvet King</span></li>
-                </ul>
-            </div>
-            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Lantern Stage</p>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">海邊的瑪嘉烈</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">Cha Chaan Orchestra</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Open Mic Hour</span></li>
-                    <li class="flex justify-between"><span class="text-white/60">21:30</span><span class="text-white">Lantern Closing</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================= TICKETS ============================= -->
-<section class="py-24 px-6 lg:px-12 bg-gradient-to-b from-brand-black via-black to-brand-black relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.08)_0%,transparent_60%)]"></div>
-    <div class="max-w-7xl mx-auto relative z-10">
-        <div class="text-center mb-16">
+    <!-- Spark single ticket block -->
+    <section class="py-20 px-6 lg:px-12 bg-brand-black border-t border-white/5">
+        <div class="max-w-2xl mx-auto text-center">
             <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Tickets</p>
-            <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Pick your <span class="gradient-text">pass.</span></h2>
-            <p class="text-white/60">Phase 1 pricing — ends 30 June 2026.</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-8">3-Day Pass</h2>
+            <div class="p-8 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-3xl">
+                <p class="text-5xl md:text-6xl font-heading font-bold mb-2">HK$1,980</p>
+                <p class="text-white/50 text-sm mb-8">All three nights, all stages.</p>
+                <button class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Buy Now</button>
+                <p class="text-white/40 text-xs mt-6">Day passes from HK$880. See full pricing at the door.</p>
+            </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 smooth-transition">
-                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Day Pass</p>
-                <p class="text-4xl font-heading font-bold mb-1">HK$880</p>
-                <p class="text-white/40 text-xs mb-6">Single day · early bird</p>
-                <ul class="space-y-2 text-xs text-white/70 mb-6">
-                    <li>All three stages</li>
-                    <li>Festival map</li>
-                    <li>Free water refills</li>
-                </ul>
-                <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
+    <!-- Spark venue -->
+    <section class="py-20 px-6 lg:px-12 bg-brand-black border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Venue</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">Central Harbourfront</h2>
+            <p class="text-white/60">Hong Kong Station · Exit A2 · 8 minute walk along the promenade.</p>
+        </div>
+    </section>
+
+    <!-- Spark sponsors -->
+    <section class="py-12 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <p class="text-center text-pink-400 text-xs tracking-widest uppercase mb-6">Partners</p>
+        <div class="max-w-4xl mx-auto grid grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+        </div>
+    </section>
+
+    <!-- Spark note -->
+    <section class="py-12 px-6 text-center">
+        <p class="text-white/40 text-sm max-w-2xl mx-auto">Spark keeps things deliberately tight — one beautiful long-scroll designed for events that just need a polished home and a clear ticket CTA.</p>
+    </section>
+</div>
+
+<!-- ============================================================================
+     VIEW 2: SHOWCASE — multi-section, full festival site (like Wanderland)
+============================================================================ -->
+<div id="view-showcase" class="tier-view hidden">
+
+    <!-- Showcase hero -->
+    <section class="relative skyline min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-20">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/15 backdrop-blur-md rounded-full border border-pink-500/30 mb-8">
+                <span class="text-pink-300 text-xs tracking-widest uppercase font-semibold">Showcase Tier · Multi-Page Festival Site</span>
             </div>
-            <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
-                <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
-                <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
-                <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
-                <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
-                <ul class="space-y-2 text-xs text-white/80 mb-6">
-                    <li>All three days, all stages</li>
-                    <li>Festival map + welcome kit</li>
-                    <li>Free water refills</li>
-                    <li>Re-entry privileges</li>
-                </ul>
-                <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+            <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
+            <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
+                <span class="block text-white">NEON</span>
+                <span class="block gradient-text">HARBOUR</span>
+            </h1>
+            <p class="text-white/70 text-base md:text-xl tracking-[0.2em] uppercase mb-8">A 3-Day Music &amp; Arts Festival</p>
+            <p class="text-white/60 text-lg md:text-xl mb-12">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+                <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">See the Lineup</button>
             </div>
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-purple-500/50 smooth-transition">
-                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
-                <p class="text-4xl font-heading font-bold mb-1">HK$4,800</p>
-                <p class="text-white/40 text-xs mb-6">3 days · elevated</p>
-                <ul class="space-y-2 text-xs text-white/70 mb-6">
-                    <li>Everything in 3-Day Pass</li>
-                    <li>Harbour-view VIP deck</li>
-                    <li>Open bar (selected hours)</li>
-                    <li>Dedicated entrance</li>
-                </ul>
-                <button class="w-full px-4 py-2 border border-purple-400/50 hover:border-purple-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get VIP</button>
+
+            <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="days">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Days</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="hours">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Hours</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="mins">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Mins</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="secs">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Secs</p>
+                </div>
             </div>
-            <div class="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border border-amber-500/40 rounded-2xl">
-                <p class="text-amber-300 text-xs tracking-widest uppercase mb-3">Junk + Festival</p>
-                <p class="text-4xl font-heading font-bold mb-1">HK$8,800</p>
-                <p class="text-white/50 text-xs mb-6">Festival + harbour cruise</p>
-                <ul class="space-y-2 text-xs text-white/80 mb-6">
-                    <li>Everything in VIP</li>
-                    <li>Pre-show junk boat cruise</li>
-                    <li>Dinner + open bar</li>
-                    <li>Limited to 60 guests</li>
-                </ul>
-                <button class="w-full px-4 py-2 border border-amber-400/50 hover:border-amber-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Apply</button>
+        </div>
+    </section>
+
+    <!-- Showcase stages -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Three Stages</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold">Skyline. Harbour. <span class="gradient-text">Lantern.</span></h2>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Main Stage</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Skyline</h3>
+                        <p class="text-white/70 text-sm">Headliners and international acts, facing Victoria Harbour.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Electronic</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Harbour</h3>
+                        <p class="text-white/70 text-sm">House, techno, and drum &amp; bass — running till 02:00.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Acoustic &amp; Arts</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Lantern</h3>
+                        <p class="text-white/70 text-sm">Sundown sessions, spoken word, and local art installations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase lineup marquee -->
+    <section class="py-16 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 overflow-hidden border-y border-white/10">
+        <div class="text-center mb-8 px-6">
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold">Phase 1 announced</h2>
+        </div>
+        <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold">
+            <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+        </div>
+    </section>
+
+    <!-- Showcase schedule -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h2>
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
+                    <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Skyline Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">Neon River</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">電光少女</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Kowloon Kids</span></li>
+                        <li class="flex justify-between"><span class="text-white/60 font-semibold">21:30</span><span class="text-pink-400 font-semibold">Saint Tang ★</span></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Harbour Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">16:30</span><span class="text-white">Pier 8 Collective</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:00</span><span class="text-white">DJ Typhoon</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Midnight Junk</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">22:00</span><span class="text-white">Velvet King</span></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Lantern Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">海邊的瑪嘉烈</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">Cha Chaan Orchestra</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Open Mic Hour</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">21:30</span><span class="text-white">Lantern Closing</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase ticket tiers -->
+    <section class="py-24 px-6 lg:px-12 bg-gradient-to-b from-brand-black via-black to-brand-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.08)_0%,transparent_60%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Tickets</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Pick your <span class="gradient-text">pass.</span></h2>
+                <p class="text-white/60">Phase 1 pricing — ends 30 June 2026.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$880</p>
+                    <p class="text-white/40 text-xs mb-6">Single day · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>All three stages</li>
+                        <li>Festival map</li>
+                        <li>Free water refills</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
+                    <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
+                    <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>All three days, all stages</li>
+                        <li>Festival map + welcome kit</li>
+                        <li>Free water refills</li>
+                        <li>Re-entry privileges</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$4,800</p>
+                    <p class="text-white/40 text-xs mb-6">3 days · elevated</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>Everything in 3-Day Pass</li>
+                        <li>Harbour-view VIP deck</li>
+                        <li>Open bar (selected hours)</li>
+                        <li>Dedicated entrance</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-purple-400/50 hover:border-purple-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get VIP</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border border-amber-500/40 rounded-2xl">
+                    <p class="text-amber-300 text-xs tracking-widest uppercase mb-3">Junk + Festival</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$8,800</p>
+                    <p class="text-white/50 text-xs mb-6">Festival + harbour cruise</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>Everything in VIP</li>
+                        <li>Pre-show junk boat cruise</li>
+                        <li>Dinner + open bar</li>
+                        <li>Limited to 60 guests</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-amber-400/50 hover:border-amber-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Apply</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase essentials -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Know Before You Go</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold">The <span class="gradient-text">essentials.</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">MTR</p>
+                    <p class="font-heading font-bold text-lg mb-1">Hong Kong Station</p>
+                    <p class="text-white/50 text-sm">Exit A2 · 8 minute walk along the promenade.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">ID</p>
+                    <p class="font-heading font-bold text-lg mb-1">18+ after 22:00</p>
+                    <p class="text-white/50 text-sm">Harbour Stage only. HKID or passport.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Food Street</p>
+                    <p class="font-heading font-bold text-lg mb-1">12 dai pai dong</p>
+                    <p class="text-white/50 text-sm">Cash and Octopus accepted at every stall.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Weather</p>
+                    <p class="font-heading font-bold text-lg mb-1">Rain or shine</p>
+                    <p class="text-white/50 text-sm">Live updates pushed to the site on event day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase press kit teaser -->
+    <section class="py-20 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Press</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">Media kit available.</h2>
+                <p class="text-white/60 mb-6">Press photos, artist bios, fact sheets, and logo packs for accredited media.</p>
+                <button class="px-6 py-3 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Download Press Kit</button>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="aspect-square bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/30 text-xs">FACT SHEET</div>
+                <div class="aspect-square bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/30 text-xs">LOGOS</div>
+                <div class="aspect-square bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/30 text-xs">ARTIST BIOS</div>
+                <div class="aspect-square bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-white/30 text-xs">PHOTOS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase sponsors -->
+    <section class="py-16 px-6 lg:px-12 bg-brand-black border-y border-white/10">
+        <p class="text-center text-pink-400 text-xs tracking-widest uppercase mb-8">Partners &amp; Sponsors</p>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">BRAND</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6 text-center">
+        <p class="text-white/40 text-sm max-w-2xl mx-auto">Showcase adds multi-page architecture, a filterable lineup, daily schedule, ticket tiers, press kit, and a custom CMS so the organizer can update content themselves.</p>
+    </section>
+</div>
+
+<!-- ============================================================================
+     VIEW 3: SPECTACLE — interactive, multi-language, real-time (like Lollapalooza)
+============================================================================ -->
+<div id="view-spectacle" class="tier-view hidden">
+
+    <!-- Spectacle live ticker -->
+    <div class="bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-pink-500/20 border-b border-pink-500/30 px-6 py-2">
+        <div class="max-w-7xl mx-auto flex items-center gap-3 text-xs md:text-sm overflow-x-auto whitespace-nowrap">
+            <span class="flex items-center gap-2 text-pink-300 font-semibold tracking-widest uppercase">
+                <span class="w-2 h-2 bg-pink-400 rounded-full live-dot"></span>
+                Live
+            </span>
+            <span class="text-white/70">Gates open Friday 16:00</span>
+            <span class="text-white/30">·</span>
+            <span class="text-white/70">Saint Tang set moved to 22:00 (Skyline)</span>
+            <span class="text-white/30">·</span>
+            <span class="text-white/70">Free shuttle from Central Pier 6 every 15 min</span>
+            <span class="text-white/30">·</span>
+            <span class="text-white/70">Phase 2 lineup drops Tuesday</span>
         </div>
     </div>
-</section>
 
-<!-- ============================= ESSENTIALS ============================= -->
-<section class="py-24 px-6 lg:px-12 bg-brand-black">
-    <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Know Before You Go</p>
-            <h2 class="text-4xl md:text-5xl font-heading font-bold">The <span class="gradient-text">essentials.</span></h2>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">MTR</p>
-                <p class="font-heading font-bold text-lg mb-1">Hong Kong Station</p>
-                <p class="text-white/50 text-sm">Exit A2 · 8 minute walk along the promenade.</p>
-            </div>
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">ID</p>
-                <p class="font-heading font-bold text-lg mb-1">18+ after 22:00</p>
-                <p class="text-white/50 text-sm">Harbour Stage only. HKID or passport.</p>
-            </div>
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Food Street</p>
-                <p class="font-heading font-bold text-lg mb-1">12 dai pai dong</p>
-                <p class="text-white/50 text-sm">Cash and Octopus accepted at every stall.</p>
-            </div>
-            <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Weather</p>
-                <p class="font-heading font-bold text-lg mb-1">Rain or shine</p>
-                <p class="text-white/50 text-sm">Live updates pushed to the site on event day.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- Spectacle hero -->
+    <section class="relative skyline min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
 
-<!-- ============================= SPONSORS ============================= -->
-<section class="py-16 px-6 lg:px-12 bg-black/40 border-y border-white/10">
-    <p class="text-center text-pink-400 text-xs tracking-widest uppercase mb-8">Partners &amp; Sponsors (Placeholder)</p>
-    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">BRAND</div>
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
-        <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
-    </div>
-</section>
+        <div class="absolute top-8 right-6 md:right-12 z-10 flex items-center gap-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 p-1">
+            <button class="px-3 py-1 text-xs rounded-full bg-white text-black font-semibold">EN</button>
+            <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">繁中</button>
+            <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">简中</button>
+        </div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-20">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/15 backdrop-blur-md rounded-full border border-purple-500/30 mb-8">
+                <span class="text-purple-300 text-xs tracking-widest uppercase font-semibold">Spectacle Tier · Full Digital Ecosystem</span>
+            </div>
+            <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
+            <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
+                <span class="block text-white">NEON</span>
+                <span class="block gradient-text">HARBOUR</span>
+            </h1>
+            <p class="text-white/70 text-base md:text-xl tracking-[0.2em] uppercase mb-8">A 3-Day Music &amp; Arts Festival</p>
+            <p class="text-white/60 text-lg md:text-xl mb-12">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+                <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">Build My Schedule</button>
+            </div>
+
+            <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="days">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Days</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="hours">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Hours</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="mins">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Mins</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" data-countdown="secs">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Secs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle: gated portals -->
+    <section class="py-16 px-6 lg:px-12 bg-brand-black border-b border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10">
+                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Spectacle Feature</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Dedicated portals</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-6 bg-white/5 border border-purple-500/30 rounded-2xl">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Press Portal</p>
+                    <p class="font-heading font-bold text-lg mb-1">Accredited media</p>
+                    <p class="text-white/50 text-sm mb-4">Login-gated photo archive, embargoed releases, interview booking.</p>
+                    <button class="text-purple-300 text-xs tracking-widest uppercase font-semibold hover:text-purple-200 smooth-transition">Press Login →</button>
+                </div>
+                <div class="p-6 bg-white/5 border border-purple-500/30 rounded-2xl">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Portal</p>
+                    <p class="font-heading font-bold text-lg mb-1">VIP &amp; Junk guests</p>
+                    <p class="text-white/50 text-sm mb-4">Concierge chat, lounge bookings, curated set recommendations.</p>
+                    <button class="text-purple-300 text-xs tracking-widest uppercase font-semibold hover:text-purple-200 smooth-transition">VIP Login →</button>
+                </div>
+                <div class="p-6 bg-white/5 border border-purple-500/30 rounded-2xl">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Artist Portal</p>
+                    <p class="font-heading font-bold text-lg mb-1">Performers &amp; crew</p>
+                    <p class="text-white/50 text-sm mb-4">Stage times, rider check-in, green-room maps, day-sheets.</p>
+                    <button class="text-purple-300 text-xs tracking-widest uppercase font-semibold hover:text-purple-200 smooth-transition">Artist Login →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle stages -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Three Stages</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold">Skyline. Harbour. <span class="gradient-text">Lantern.</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Main Stage</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Skyline</h3>
+                        <p class="text-white/70 text-sm">Headliners and international acts, facing Victoria Harbour.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Electronic</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Harbour</h3>
+                        <p class="text-white/70 text-sm">House, techno, and drum &amp; bass — running till 02:00.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Acoustic &amp; Arts</p>
+                        <h3 class="text-3xl font-heading font-bold mb-2">Lantern</h3>
+                        <p class="text-white/70 text-sm">Sundown sessions, spoken word, and local art installations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle: interactive site map -->
+    <section class="py-24 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Spectacle Feature</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold">Interactive site map.</h2>
+                <p class="text-white/60 mt-4 max-w-2xl mx-auto">Three stages. Twelve zones. Tap any point for stage times, vendor info, and live wait times on event day.</p>
+            </div>
+            <div class="relative aspect-[16/9] md:aspect-[21/9] bg-gradient-to-br from-purple-900/40 to-pink-900/30 rounded-3xl border border-purple-500/30 overflow-hidden">
+                <div class="absolute inset-0 opacity-30" style="background-image:linear-gradient(rgba(168,85,247,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,.2) 1px, transparent 1px); background-size:40px 40px;"></div>
+                <!-- Skyline -->
+                <div class="absolute top-[30%] left-[20%] flex flex-col items-center">
+                    <span class="w-4 h-4 bg-pink-500 rounded-full live-dot mb-2"></span>
+                    <span class="text-xs font-semibold tracking-widest uppercase bg-black/60 px-2 py-1 rounded">Skyline</span>
+                </div>
+                <!-- Harbour -->
+                <div class="absolute top-[55%] right-[25%] flex flex-col items-center">
+                    <span class="w-4 h-4 bg-purple-500 rounded-full live-dot mb-2"></span>
+                    <span class="text-xs font-semibold tracking-widest uppercase bg-black/60 px-2 py-1 rounded">Harbour</span>
+                </div>
+                <!-- Lantern -->
+                <div class="absolute bottom-[20%] left-[40%] flex flex-col items-center">
+                    <span class="w-4 h-4 bg-amber-400 rounded-full live-dot mb-2"></span>
+                    <span class="text-xs font-semibold tracking-widest uppercase bg-black/60 px-2 py-1 rounded">Lantern</span>
+                </div>
+                <!-- Vendors -->
+                <div class="absolute top-[20%] right-[15%] text-white/50 text-[10px]">🍜 Food Street</div>
+                <div class="absolute bottom-[30%] right-[10%] text-white/50 text-[10px]">🚇 Exit A2</div>
+                <div class="absolute top-[70%] left-[15%] text-white/50 text-[10px]">📷 Photo Wall</div>
+                <div class="absolute top-[40%] left-[55%] text-white/50 text-[10px]">🚻 Restrooms</div>
+            </div>
+            <p class="text-center text-white/40 text-xs mt-4">Static preview · Full version is live and interactive during the event.</p>
+        </div>
+    </section>
+
+    <!-- Spectacle lineup marquee -->
+    <section class="py-16 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 overflow-hidden border-y border-white/10">
+        <div class="text-center mb-8 px-6">
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold">Phase 1 announced</h2>
+        </div>
+        <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold">
+            <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+            <span class="text-white">SAINT TANG</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span><span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span><span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span><span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span><span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span><span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span><span class="text-pink-400">·</span>
+        </div>
+    </section>
+
+    <!-- Spectacle schedule + build your own -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h2>
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
+                    <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Skyline Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between items-center"><span class="text-white/60">17:00</span><span class="text-white">Neon River</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">18:30</span><span class="text-white">電光少女</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">20:00</span><span class="text-white">Kowloon Kids</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60 font-semibold">22:00</span><span class="text-pink-400 font-semibold">Saint Tang ★</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Harbour Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between items-center"><span class="text-white/60">16:30</span><span class="text-white">Pier 8 Collective</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">18:00</span><span class="text-white">DJ Typhoon</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">20:00</span><span class="text-white">Midnight Junk</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">22:00</span><span class="text-white">Velvet King</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Lantern Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between items-center"><span class="text-white/60">17:00</span><span class="text-white">海邊的瑪嘉烈</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">18:30</span><span class="text-white">Cha Chaan Orchestra</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">20:00</span><span class="text-white">Open Mic Hour</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                        <li class="flex justify-between items-center"><span class="text-white/60">21:30</span><span class="text-white">Lantern Closing</span><button class="text-purple-300 text-[10px]">+ Add</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 bg-gradient-to-r from-purple-500/15 to-pink-500/15 border border-purple-500/40 rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-2">Spectacle Feature</p>
+                    <h3 class="font-heading font-bold text-xl md:text-2xl mb-1">Build your own schedule</h3>
+                    <p class="text-white/60 text-sm">Tap + Add on any set. Sync to Apple, Google, or your calendar of choice.</p>
+                </div>
+                <button class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition whitespace-nowrap">My Schedule</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle ticket tiers (same as showcase) -->
+    <section class="py-24 px-6 lg:px-12 bg-gradient-to-b from-brand-black via-black to-brand-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.08)_0%,transparent_60%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Tickets</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mb-4">Pick your <span class="gradient-text">pass.</span></h2>
+                <p class="text-white/60">Phase 1 pricing — ends 30 June 2026.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$880</p>
+                    <p class="text-white/40 text-xs mb-6">Single day · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>All three stages</li>
+                        <li>Festival map</li>
+                        <li>Free water refills</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
+                    <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
+                    <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>All three days, all stages</li>
+                        <li>Festival map + welcome kit</li>
+                        <li>Free water refills</li>
+                        <li>Re-entry privileges</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$4,800</p>
+                    <p class="text-white/40 text-xs mb-6">3 days · elevated</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>Everything in 3-Day Pass</li>
+                        <li>Harbour-view VIP deck</li>
+                        <li>Open bar (selected hours)</li>
+                        <li>Dedicated entrance</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-purple-400/50 hover:border-purple-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get VIP</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border border-amber-500/40 rounded-2xl">
+                    <p class="text-amber-300 text-xs tracking-widest uppercase mb-3">Junk + Festival</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$8,800</p>
+                    <p class="text-white/50 text-xs mb-6">Festival + harbour cruise</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>Everything in VIP</li>
+                        <li>Pre-show junk boat cruise</li>
+                        <li>Dinner + open bar</li>
+                        <li>Limited to 60 guests</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-amber-400/50 hover:border-amber-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Apply</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle: live blog & recap teasers -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-8 bg-white/5 border border-purple-500/30 rounded-3xl">
+                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Spectacle Feature · Pre &amp; Live</p>
+                <h3 class="text-2xl md:text-3xl font-heading font-bold mb-4">Live Blog</h3>
+                <p class="text-white/60 mb-6 text-sm leading-relaxed">A real-time story stream during the festival — set highlights, surprise drops, weather alerts, queue updates, all timestamped and shareable.</p>
+                <div class="space-y-3 text-sm">
+                    <div class="flex gap-3"><span class="text-white/40 text-xs mt-1 whitespace-nowrap">22:14</span><p class="text-white/80">Saint Tang just dropped an unreleased track. Crowd lost it.</p></div>
+                    <div class="flex gap-3"><span class="text-white/40 text-xs mt-1 whitespace-nowrap">21:30</span><p class="text-white/80">Harbour Stage queue cleared. Plenty of room for the headliner.</p></div>
+                    <div class="flex gap-3"><span class="text-white/40 text-xs mt-1 whitespace-nowrap">20:45</span><p class="text-white/80">Free shuttles still running every 15 mins from Pier 6.</p></div>
+                </div>
+            </div>
+            <div class="p-8 bg-white/5 border border-purple-500/30 rounded-3xl">
+                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Spectacle Feature · Post-Event</p>
+                <h3 class="text-2xl md:text-3xl font-heading font-bold mb-4">2026 Recap</h3>
+                <p class="text-white/60 mb-6 text-sm leading-relaxed">When the festival ends, the site doesn't go quiet. A dedicated recap microsite goes live — after-movie, photo highlights, attendee stats, and the warm-up for next year.</p>
+                <div class="aspect-video bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center border border-white/10">
+                    <button class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center text-black">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"></polygon></svg>
+                    </button>
+                </div>
+                <p class="text-white/40 text-xs mt-3">After-movie · 2:48</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle organizer dashboard teaser -->
+    <section class="py-20 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">Spectacle Feature · For Organizers</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">A live dashboard, just for you.</h2>
+                <p class="text-white/60 mt-4 max-w-2xl mx-auto">A private control room with attendance flow, ticket sales velocity, top traffic sources, and sponsor impressions — refreshed every minute.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                    <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Tickets sold</p>
+                    <p class="text-3xl font-heading font-bold">14,820</p>
+                    <p class="text-pink-400 text-xs">+1,204 today</p>
+                </div>
+                <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                    <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Site visits</p>
+                    <p class="text-3xl font-heading font-bold">98K</p>
+                    <p class="text-pink-400 text-xs">↑ 23% w/w</p>
+                </div>
+                <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                    <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Top source</p>
+                    <p class="text-3xl font-heading font-bold">IG</p>
+                    <p class="text-white/40 text-xs">41% of new visits</p>
+                </div>
+                <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                    <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Newsletter</p>
+                    <p class="text-3xl font-heading font-bold">7,341</p>
+                    <p class="text-pink-400 text-xs">+312 today</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle essentials -->
+    <section class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Know Before You Go</p>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold">The <span class="gradient-text">essentials.</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">MTR</p>
+                    <p class="font-heading font-bold text-lg mb-1">Hong Kong Station</p>
+                    <p class="text-white/50 text-sm">Exit A2 · 8 minute walk along the promenade.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">ID</p>
+                    <p class="font-heading font-bold text-lg mb-1">18+ after 22:00</p>
+                    <p class="text-white/50 text-sm">Harbour Stage only. HKID or passport.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Food Street</p>
+                    <p class="font-heading font-bold text-lg mb-1">12 dai pai dong</p>
+                    <p class="text-white/50 text-sm">Cash and Octopus accepted at every stall.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Weather</p>
+                    <p class="font-heading font-bold text-lg mb-1">Rain or shine</p>
+                    <p class="text-white/50 text-sm">Live updates pushed to the site on event day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacle sponsors -->
+    <section class="py-16 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <p class="text-center text-pink-400 text-xs tracking-widest uppercase mb-8">Partners &amp; Sponsors</p>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">BRAND</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+        </div>
+    </section>
+
+    <section class="py-12 px-6 text-center">
+        <p class="text-white/40 text-sm max-w-2xl mx-auto">Spectacle layers in multi-language support, gated portals, an interactive map, a live blog, a "build your schedule" feature, organizer analytics, and a post-event recap microsite.</p>
+    </section>
+</div>
 
 <!-- ============================= BACK TO EVENT LAB ============================= -->
-<section class="py-20 px-6 lg:px-12 text-center bg-brand-black">
-    <p class="text-white/40 text-sm mb-4">↑ This entire site is one Event Lab Spectacle build.</p>
+<section class="py-20 px-6 lg:px-12 text-center bg-brand-black border-t border-white/10">
+    <p class="text-white/40 text-sm mb-4">All three views above are the same Neon Harbour Festival — built at three different tiers.</p>
     <a href="index.html#tiers" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">
         Compare all three tiers
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -387,18 +943,38 @@
 
 <script>
 (function() {
+    // Tier tab switcher
+    const tabs = document.querySelectorAll('.tier-tab');
+    const views = {
+        spark:     document.getElementById('view-spark'),
+        showcase:  document.getElementById('view-showcase'),
+        spectacle: document.getElementById('view-spectacle'),
+    };
+    function showTier(tier) {
+        Object.entries(views).forEach(([k, el]) => {
+            if (!el) return;
+            el.classList.toggle('hidden', k !== tier);
+        });
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.tier === tier));
+        history.replaceState(null, '', '#' + tier);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    tabs.forEach(t => t.addEventListener('click', () => showTier(t.dataset.tier)));
+
+    const initial = (location.hash || '#spark').slice(1);
+    if (views[initial]) showTier(initial);
+
+    // Countdown (writes to all data-countdown elements in DOM)
     const target = new Date('2026-11-14T17:00:00+08:00').getTime();
     function tick() {
         const now = Date.now();
         let diff = Math.max(0, target - now);
-        const d = Math.floor(diff / (1000*60*60*24)); diff -= d * 1000*60*60*24;
-        const h = Math.floor(diff / (1000*60*60));    diff -= h * 1000*60*60;
-        const m = Math.floor(diff / (1000*60));       diff -= m * 1000*60;
+        const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+        const h = Math.floor(diff / 3600000);  diff -= h * 3600000;
+        const m = Math.floor(diff / 60000);    diff -= m * 60000;
         const s = Math.floor(diff / 1000);
-        document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
-        document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-        document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
-        document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+        const set = (key, v) => document.querySelectorAll(`[data-countdown="${key}"]`).forEach(el => el.textContent = String(v).padStart(2,'0'));
+        set('days', d); set('hours', h); set('mins', m); set('secs', s);
     }
     tick();
     setInterval(tick, 1000);
