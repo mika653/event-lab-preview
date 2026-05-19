@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Stack — Event Lab</title>
+    <meta name="description" content="What it actually takes to ship an Event Lab site. Services, subscriptions, and cost ranges per tier.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { black: '#0A0A0A', white: '#FFFFFF' } },
+                    fontFamily: {
+                        sans: ['Inter Tight', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter Tight', sans-serif; background-color: #0A0A0A; color: #FFFFFF; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+        .smooth-transition { transition: all 0.3s ease-out; }
+        ::selection { background-color: #FF2D6F; color: white; }
+        .tier-stripe { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.02) 0 1px, transparent 1px 12px); }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+<!-- ============================= NAV ============================= -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
+            <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">Backend Stack</span>
+        </a>
+        <a href="index.html" class="inline-flex items-center gap-2 text-white/70 hover:text-white smooth-transition text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            Back to Event Lab
+        </a>
+    </div>
+</nav>
+
+<!-- ============================= HERO ============================= -->
+<section class="pt-32 pb-16 px-6 lg:px-12 border-b border-white/5">
+    <div class="max-w-5xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-[#FF2D6F]/60 rounded-full mb-8">
+            <span class="text-[#FF2D6F] text-xs tracking-widest uppercase font-semibold">Backend Stack</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
+            What it takes to ship <span class="text-[#FF2D6F]">for real.</span>
+        </h1>
+        <p class="text-white/60 text-lg md:text-xl leading-relaxed max-w-3xl">
+            The preview pages Joe is looking at are static front-ends. When a client signs on, these are the services that turn a preview into a working site — RSVPs, ticket sales, real-time updates, gated portals, and the lot. Below: every tool we'd subscribe to, organized by tier, with cost ranges.
+        </p>
+    </div>
+</section>
+
+<!-- ============================= FOUNDATION ============================= -->
+<section class="py-20 px-6 lg:px-12 border-b border-white/5">
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-10 max-w-3xl">
+            <p class="text-[#FF2D6F] text-xs tracking-widest uppercase mb-3">Foundation</p>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-3">Shared by every tier.</h2>
+            <p class="text-white/60">Every Event Lab project — Spark, Showcase, or Spectacle — needs this baseline. Most of this you likely already pay for through DFB Digital.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Hosting</p>
+                <h3 class="font-heading font-bold text-lg mb-1">Vercel</h3>
+                <p class="text-white/50 text-sm mb-3">Static and Next.js hosting. Already in your stack.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">Free</span> → US$20 / mo Pro</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Custom Domain</p>
+                <h3 class="font-heading font-bold text-lg mb-1">Cloudflare Registrar</h3>
+                <p class="text-white/50 text-sm mb-3">At-cost domain registration. Free DNS &amp; SSL.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">~US$12 / yr</span> per event</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Analytics</p>
+                <h3 class="font-heading font-bold text-lg mb-1">Plausible <span class="text-white/30 font-normal">or GA4</span></h3>
+                <p class="text-white/50 text-sm mb-3">Visitor numbers, source attribution, conversion paths.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">Free</span> (GA4) → US$9 / mo (Plausible)</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Email Sending</p>
+                <h3 class="font-heading font-bold text-lg mb-1">Resend</h3>
+                <p class="text-white/50 text-sm mb-3">Transactional emails — confirmations, RSVPs, receipts.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">Free</span> to 3K / mo → US$20 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Database</p>
+                <h3 class="font-heading font-bold text-lg mb-1">Supabase</h3>
+                <p class="text-white/50 text-sm mb-3">Postgres + auth + storage + realtime, on one bill.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">Free</span> → US$25 / mo Pro</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">CRM</p>
+                <h3 class="font-heading font-bold text-lg mb-1">HubSpot Free <span class="text-white/30 font-normal">or Airtable</span></h3>
+                <p class="text-white/50 text-sm mb-3">Lead capture, contact list, sales pipeline.</p>
+                <p class="text-white/70 text-xs"><span class="text-[#FF2D6F]">Free</span> → US$20 / seat</p>
+            </div>
+        </div>
+        <p class="text-white/40 text-sm mt-8 max-w-3xl">Baseline cost: <span class="text-white">US$0 — $50 / month</span>, plus domains. Most of this exists in DFB Digital already; see [DFB components note](#dfb-note) below.</p>
+    </div>
+</section>
+
+<!-- ============================= SPARK ============================= -->
+<section class="py-20 px-6 lg:px-12 border-b border-white/5 tier-stripe">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-[#FF2D6F]/60 rounded-full mb-5">
+                    <span class="text-[#FF2D6F] text-xs tracking-widest uppercase font-semibold">Spark · Beauty Launch Example</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mb-3">Lean by design.</h2>
+                <p class="text-white/60">An RSVP form gated by an invitation code. No payments, no tickets, no real-time. The foundation does almost everything.</p>
+            </div>
+            <div class="p-4 bg-[#FF2D6F]/10 border border-[#FF2D6F]/40 rounded-2xl text-right whitespace-nowrap">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Adds on top of Foundation</p>
+                <p class="font-heading font-bold text-2xl text-[#FF2D6F]">US$10 — $30 / mo</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">RSVP / forms</p>
+                <h3 class="font-heading font-bold mb-1">Supabase form</h3>
+                <p class="text-white/50 text-sm mb-3">Code validation, capacity tracking, +1 details.</p>
+                <p class="text-white/70 text-xs">Included in Foundation</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Better form UX</p>
+                <h3 class="font-heading font-bold mb-1">Tally <span class="text-white/30 font-normal">(optional)</span></h3>
+                <p class="text-white/50 text-sm mb-3">No-code forms with conditional logic + webhook to Supabase.</p>
+                <p class="text-white/70 text-xs">Free → US$39 / mo Pro</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Calendar invite</p>
+                <h3 class="font-heading font-bold mb-1">ICS generator</h3>
+                <p class="text-white/50 text-sm mb-3">Generated server-side, attached to confirmation email.</p>
+                <p class="text-white/70 text-xs">Free · code only</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Image hosting</p>
+                <h3 class="font-heading font-bold mb-1">Vercel images</h3>
+                <p class="text-white/50 text-sm mb-3">Or Cloudinary free tier if we need on-the-fly resizing.</p>
+                <p class="text-white/70 text-xs">Included in Vercel Pro</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= SHOWCASE ============================= -->
+<section class="py-20 px-6 lg:px-12 border-b border-white/5">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FF2D6F] rounded-full mb-5">
+                    <span class="text-white text-xs tracking-widest uppercase font-semibold">Showcase · Toy Expo Example</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mb-3">Real commerce kicks in.</h2>
+                <p class="text-white/60">Ticket inventory across four tiers, panel registrations, press kit downloads, and a CMS so the organizer can update content without calling us.</p>
+            </div>
+            <div class="p-4 bg-[#FF2D6F]/10 border border-[#FF2D6F]/40 rounded-2xl text-right whitespace-nowrap">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Adds on top of Foundation</p>
+                <p class="font-heading font-bold text-2xl text-[#FF2D6F]">US$50 — $150 / mo</p>
+                <p class="text-white/40 text-[10px] mt-1">+ ~5% per ticket sold</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Ticketing</p>
+                <h3 class="font-heading font-bold mb-1">Ticketflap <span class="text-white/30 font-normal">(HK)</span></h3>
+                <p class="text-white/50 text-sm mb-3">HK-native, multi-tier, takes ~5% per sale. Or Eventbrite if international.</p>
+                <p class="text-white/70 text-xs">~5% per ticket</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Payments</p>
+                <h3 class="font-heading font-bold mb-1">Stripe</h3>
+                <p class="text-white/50 text-sm mb-3">If we self-host ticketing on Supabase instead of Ticketflap.</p>
+                <p class="text-white/70 text-xs">3.4% + HK$2.35 per txn</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">CMS</p>
+                <h3 class="font-heading font-bold mb-1">Sanity</h3>
+                <p class="text-white/50 text-sm mb-3">So the organizer can update designers, drops, schedule themselves.</p>
+                <p class="text-white/70 text-xs">Free → US$99 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">File delivery</p>
+                <h3 class="font-heading font-bold mb-1">Bunny.net</h3>
+                <p class="text-white/50 text-sm mb-3">Press kit downloads, photo gallery from previous years.</p>
+                <p class="text-white/70 text-xs">~US$0.01 / GB</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Newsletter</p>
+                <h3 class="font-heading font-bold mb-1">Resend Audiences</h3>
+                <p class="text-white/50 text-sm mb-3">Mailchimp also fine if the client already uses it.</p>
+                <p class="text-white/70 text-xs">Included in Foundation</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Floor plan (interactive)</p>
+                <h3 class="font-heading font-bold mb-1">Mapbox <span class="text-white/30 font-normal">(if needed)</span></h3>
+                <p class="text-white/50 text-sm mb-3">Static SVG to start; Mapbox if pan/zoom is required.</p>
+                <p class="text-white/70 text-xs">Free to 50K loads / mo</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= SPECTACLE ============================= -->
+<section class="py-20 px-6 lg:px-12 border-b border-white/5 tier-stripe">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-600 rounded-full mb-5">
+                    <span class="w-2 h-2 bg-white rounded-full"></span>
+                    <span class="text-white text-xs tracking-widest uppercase font-semibold">Spectacle · Festival Example</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mb-3">The full ecosystem.</h2>
+                <p class="text-white/60">Multi-language, gated portals, real-time updates, live blog, build-your-schedule, organizer analytics, hotel partner flows, push notifications. The site behaves like a product, not a brochure.</p>
+            </div>
+            <div class="p-4 bg-purple-600/15 border border-purple-500/40 rounded-2xl text-right whitespace-nowrap">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-1">Adds on top of Foundation</p>
+                <p class="font-heading font-bold text-2xl text-purple-300">US$300 — $600 / mo</p>
+                <p class="text-white/40 text-[10px] mt-1">+ ticket platform fees</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Ticketing</p>
+                <h3 class="font-heading font-bold mb-1">Ticketflap + Klook</h3>
+                <p class="text-white/50 text-sm mb-3">Ticketflap for HK locals, Klook for tourist-package bundles.</p>
+                <p class="text-white/70 text-xs">~5% + Klook commission</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Auth · Gated portals</p>
+                <h3 class="font-heading font-bold mb-1">Clerk</h3>
+                <p class="text-white/50 text-sm mb-3">Press / VIP / Artist logins. Magic-link by default.</p>
+                <p class="text-white/70 text-xs">Free to 10K MAU → US$25 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Real-time</p>
+                <h3 class="font-heading font-bold mb-1">Supabase Realtime</h3>
+                <p class="text-white/50 text-sm mb-3">Live ticker, set-time updates, weather alerts. Already in Foundation.</p>
+                <p class="text-white/70 text-xs">Included</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Multi-language</p>
+                <h3 class="font-heading font-bold mb-1">Sanity i18n</h3>
+                <p class="text-white/50 text-sm mb-3">EN / 繁中 / 简中 managed from one CMS.</p>
+                <p class="text-white/70 text-xs">US$99 / mo Growth tier</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Push notifications</p>
+                <h3 class="font-heading font-bold mb-1">OneSignal</h3>
+                <p class="text-white/50 text-sm mb-3">Event-day alerts: set changes, gate openings, weather.</p>
+                <p class="text-white/70 text-xs">Free to 10K subscribers</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Concierge chat</p>
+                <h3 class="font-heading font-bold mb-1">Crisp</h3>
+                <p class="text-white/50 text-sm mb-3">VIP portal chat + general support. Intercom if budget allows.</p>
+                <p class="text-white/70 text-xs">Free → US$25 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Interactive map</p>
+                <h3 class="font-heading font-bold mb-1">Mapbox</h3>
+                <p class="text-white/50 text-sm mb-3">Live wait times, stage navigation, vendor lookups.</p>
+                <p class="text-white/70 text-xs">~US$5 — $50 / mo festival-scale</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Video &amp; media</p>
+                <h3 class="font-heading font-bold mb-1">Cloudinary <span class="text-white/30 font-normal">or Bunny Stream</span></h3>
+                <p class="text-white/50 text-sm mb-3">After-movie, photo galleries, sponsor activations.</p>
+                <p class="text-white/70 text-xs">~US$10 — $99 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Organizer dashboard</p>
+                <h3 class="font-heading font-bold mb-1">Retool <span class="text-white/30 font-normal">or custom</span></h3>
+                <p class="text-white/50 text-sm mb-3">Live attendance, ticket velocity, traffic sources.</p>
+                <p class="text-white/70 text-xs">US$10 / user / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Calendar sync</p>
+                <h3 class="font-heading font-bold mb-1">ICS + Cal.com</h3>
+                <p class="text-white/50 text-sm mb-3">"Build your schedule" → Apple / Google / Outlook sync.</p>
+                <p class="text-white/70 text-xs">Free (ICS) → US$15 / mo</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Hotel partners</p>
+                <h3 class="font-heading font-bold mb-1">Affiliate links</h3>
+                <p class="text-white/50 text-sm mb-3">Tracked partner URLs · no subscription. Klook deal-portal if available.</p>
+                <p class="text-white/70 text-xs">Free</p>
+            </div>
+            <div class="p-5 bg-white/5 border border-purple-500/30 rounded-2xl">
+                <p class="text-white/40 text-[10px] tracking-widest uppercase mb-2">Ad pixels</p>
+                <h3 class="font-heading font-bold mb-1">Meta Pixel + Google Tag</h3>
+                <p class="text-white/50 text-sm mb-3">Retargeting and conversion tracking for paid spend.</p>
+                <p class="text-white/70 text-xs">Free</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= DFB NOTE ============================= -->
+<section id="dfb-note" class="py-16 px-6 lg:px-12 border-b border-white/5">
+    <div class="max-w-4xl mx-auto p-8 bg-white/5 border border-white/10 rounded-3xl">
+        <p class="text-[#FF2D6F] text-xs tracking-widest uppercase mb-3">A note on DFB's existing stack</p>
+        <h3 class="text-2xl md:text-3xl font-heading font-bold mb-4">Some of this you already have.</h3>
+        <p class="text-white/60 mb-4">From the main dfbdigital.com codebase, several pieces overlap with what an Event Lab production stack needs:</p>
+        <ul class="space-y-2 text-white/70 text-sm">
+            <li class="flex items-start gap-3"><span class="text-[#FF2D6F] mt-1">·</span> Google Analytics 4 is wired up site-wide.</li>
+            <li class="flex items-start gap-3"><span class="text-[#FF2D6F] mt-1">·</span> Vercel hosting + deployment is already in production.</li>
+            <li class="flex items-start gap-3"><span class="text-[#FF2D6F] mt-1">·</span> Email and CRM components already exist (EmailCRM.tsx) — likely a Resend or similar service is in play.</li>
+            <li class="flex items-start gap-3"><span class="text-[#FF2D6F] mt-1">·</span> A chat widget component (ChatWidget.tsx) suggests Crisp or equivalent is already integrated.</li>
+        </ul>
+        <p class="text-white/60 text-sm mt-4">Before signing up for anything new, worth a quick audit of what's already paid for under DFB's existing tooling — this could shave $50-150 / mo off the Spectacle number above.</p>
+    </div>
+</section>
+
+<!-- ============================= SUMMARY ============================= -->
+<section class="py-20 px-6 lg:px-12 border-b border-white/5">
+    <div class="max-w-5xl mx-auto">
+        <p class="text-[#FF2D6F] text-xs tracking-widest uppercase mb-3 text-center">Summary</p>
+        <h2 class="text-3xl md:text-4xl font-heading font-bold mb-12 text-center">The headline numbers.</h2>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm md:text-base">
+                <thead>
+                    <tr class="border-b border-white/10 text-white/40 text-xs tracking-widest uppercase">
+                        <th class="py-3 pr-4 text-left font-semibold">Tier</th>
+                        <th class="py-3 pr-4 text-left font-semibold">Example event</th>
+                        <th class="py-3 pr-4 text-left font-semibold">Add-on cost</th>
+                        <th class="py-3 text-left font-semibold">Transaction fees</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <tr>
+                        <td class="py-4 pr-4 font-heading font-bold text-[#FF2D6F]">Spark</td>
+                        <td class="py-4 pr-4 text-white/80">Beauty launch · RSVP only</td>
+                        <td class="py-4 pr-4 text-white">US$10 — $30 / mo</td>
+                        <td class="py-4 text-white/40">None</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 pr-4 font-heading font-bold text-[#FF2D6F]">Showcase</td>
+                        <td class="py-4 pr-4 text-white/80">Toy expo · ticketed</td>
+                        <td class="py-4 pr-4 text-white">US$50 — $150 / mo</td>
+                        <td class="py-4 text-white/70">~5% per ticket</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 pr-4 font-heading font-bold text-purple-300">Spectacle</td>
+                        <td class="py-4 pr-4 text-white/80">Festival · ticketed + tourist</td>
+                        <td class="py-4 pr-4 text-white">US$300 — $600 / mo</td>
+                        <td class="py-4 text-white/70">~5% + Klook commission</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="text-white/40 text-xs mt-6">All figures are monthly run-rate while a client's event is active. Most tools have free tiers we'd start on during build and only upgrade when traffic warrants it.</p>
+    </div>
+</section>
+
+<!-- ============================= CTA ============================= -->
+<section class="py-20 px-6 text-center bg-brand-black">
+    <p class="text-white/40 text-sm mb-4">Questions on the stack, or want a phase-by-phase buildout plan?</p>
+    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Backend Stack" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FF2D6F] hover:bg-[#E91E62] text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">
+        Get in Touch
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="py-10 px-6 border-t border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#FF2D6F] flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <span class="font-heading font-bold text-white/70">Event Lab</span>
+            <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
+        </a>
+        <p class="text-white/30 text-sm">&copy; 2026 DFB Digital. All rights reserved.</p>
+        <a href="mailto:hello@dfbdigital.com" class="text-white/50 hover:text-white text-sm smooth-transition">hello@dfbdigital.com</a>
+    </div>
+</footer>
+
+</body>
+</html>
