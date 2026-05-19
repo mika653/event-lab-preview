@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Lab by DFB Digital | Websites built for moments that matter</title>
+    <meta name="description" content="High-impact event websites that inform, engage, and convert. Three tiers, one standard — built by a team of nine specialists.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0A0A0A',
+                            white: '#FFFFFF',
+                            blue: '#0000FF',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        tc: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0A0A0A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .heading-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .smooth-transition {
+            transition: all 0.3s ease-out;
+        }
+        ::selection {
+            background-color: #ec4899;
+            color: white;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #f472b6, #a855f7, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .float-slow { animation: float 6s ease-in-out infinite; }
+        .float-slower { animation: float 9s ease-in-out infinite; animation-delay: 1s; }
+
+        /* Visualizer preview swatches */
+        .viz-color-option input { display: none; }
+        .viz-color-option .swatch {
+            width: 32px; height: 32px; border-radius: 9999px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform .2s ease, border-color .2s ease;
+        }
+        .viz-color-option input:checked + .swatch {
+            border-color: #fff;
+            transform: scale(1.15);
+        }
+
+        /* Tier toggle */
+        .tier-toggle input { display: none; }
+        .tier-toggle label {
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .tier-toggle input:checked + label {
+            background: linear-gradient(90deg, #ec4899, #a855f7);
+            color: #fff;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Neon Harbour skyline */
+        .skyline {
+            background:
+                linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,.85) 70%, #0a0a0a 100%),
+                url('https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Subtle grid behind tiers */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Marquee */
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+
+        /* Aspect helper for older browsers */
+        .aspect-poster { aspect-ratio: 3 / 4; }
+
+        /* Glow pulse */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(236,72,153,.3), 0 0 60px rgba(168,85,247,.2); }
+            50% { box-shadow: 0 0 50px rgba(236,72,153,.5), 0 0 90px rgba(168,85,247,.35); }
+        }
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+<!-- ============================= NAV ============================= -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white">EL</div>
+            <span class="font-heading font-bold tracking-wide text-white">Event Lab</span>
+            <span class="hidden md:inline text-white/40 text-xs uppercase tracking-widest ml-2">by DFB Digital</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+            <a href="#what" class="text-white/70 hover:text-white smooth-transition">What it is</a>
+            <a href="#tiers" class="text-white/70 hover:text-white smooth-transition">Tiers</a>
+            <a href="#team" class="text-white/70 hover:text-white smooth-transition">The Team</a>
+            <a href="#visualizer" class="text-white/70 hover:text-white smooth-transition">Visualizer</a>
+            <a href="#showcase" class="text-white/70 hover:text-white smooth-transition">Showcase</a>
+            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="px-5 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs font-semibold uppercase tracking-widest rounded-full smooth-transition">Get in Touch</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================= HERO (kept from EventLab.tsx) ============================= -->
+<section id="top" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=2000" alt="Concert atmosphere" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-900/30 via-purple-900/20 to-black/50"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500"></div>
+    </div>
+    <div class="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-pink-500/20 rounded-full blur-[100px] md:blur-[128px] animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-48 h-48 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-[100px] md:blur-[128px] animate-pulse" style="animation-delay:1s"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
+            <span class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
+            <span class="text-white/80 text-sm font-medium tracking-wide">Premium Event Solutions</span>
+        </div>
+        <p class="text-xl md:text-2xl text-white/80 font-light tracking-wide mb-4">Websites built for moments that matter.</p>
+        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold leading-[1.05] mb-8">
+            <span class="text-white">Event</span><span class="gradient-text"> Lab</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-white/70 leading-relaxed mb-12 max-w-3xl mx-auto font-light">
+            High-impact event websites that inform, engage, and convert—whether it's a conference, launch, community event, or private gathering. From schedules and speakers to registration and post-event content, everything lives in one focused digital experience.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">
+                <span>Start Your Event</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 smooth-transition"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#visualizer" class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-pink-400/50 hover:border-pink-400 hover:bg-pink-500/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">
+                <span>Try the Visualizer</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </a>
+            <a href="#tiers" class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">See the Tiers</a>
+        </div>
+
+        <div class="mt-16 flex items-center justify-center gap-8 text-white/40 text-xs tracking-widest uppercase">
+            <span>Pre-Event</span><span class="w-1 h-1 bg-white/30 rounded-full"></span>
+            <span>Event Proper</span><span class="w-1 h-1 bg-white/30 rounded-full"></span>
+            <span>Post-Event</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= WHAT EVENT LAB IS ============================= -->
+<section id="what" class="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.06)_0%,transparent_70%)]"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full border border-pink-500/30 mb-6">
+                <span class="text-pink-400 text-sm font-medium tracking-wide">What it is</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+                One <span class="gradient-text">digital home</span> for every moment of your event.
+            </h2>
+            <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+                Event Lab builds dedicated websites that work across your whole event lifecycle — from the first hype post to the final post-event recap. Not a listing page. Not a social link. A single, focused experience that lives at <em>your</em> URL.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+            <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3 class="text-2xl font-heading font-bold mb-3">Pre-Event</h3>
+                <p class="text-white/60 leading-relaxed">Build excitement till the big day. Tease lineups, drop the schedule, push tickets, capture leads, generate buzz.</p>
+            </div>
+            <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <h3 class="text-2xl font-heading font-bold mb-3">Event Proper</h3>
+                <p class="text-white/60 leading-relaxed">Guide guests in real time. Live schedule, set time changes, maps, FAQs — everything they need on the phone in their pocket.</p>
+            </div>
+            <div class="group p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white mb-6 group-hover:scale-110 smooth-transition">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M21 12A9 9 0 0 0 6 5.3L3 8"></path><path d="M21 22v-6h-6"></path><path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"></path></svg>
+                </div>
+                <h3 class="text-2xl font-heading font-bold mb-3">Post-Event</h3>
+                <p class="text-white/60 leading-relaxed">Relive the experience. After-movies, photo galleries, attendee data, sponsor reports, and the warm-up for next year.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 reveal">
+            <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                <h4 class="font-heading font-bold mb-2 text-lg">Centralized Content</h4>
+                <p class="text-white/60 text-sm leading-relaxed">Schedules, speakers, announcements, content — managed in one place, always the latest version.</p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                <h4 class="font-heading font-bold mb-2 text-lg">Always-On Access</h4>
+                <p class="text-white/60 text-sm leading-relaxed">Accessible anytime, on any device — attendees, partners, speakers, press, all served 24/7.</p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                <h4 class="font-heading font-bold mb-2 text-lg">Sponsor Visibility</h4>
+                <p class="text-white/60 text-sm leading-relaxed">Purpose-built sponsor sections that deliver real value without diluting the attendee experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= THE 3 TIERS ============================= -->
+<section id="tiers" class="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden grid-bg">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.08)_0%,transparent_60%)]"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full border border-pink-500/30 mb-6">
+                <span class="text-pink-400 text-sm font-medium tracking-wide">Choose Your Tier</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+                Three tiers. <span class="gradient-text">One standard.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+                Every Event Lab site is built by the same team of nine specialists. What scales is the depth — not the quality.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal">
+
+            <!-- SPARK -->
+            <div class="group relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center text-white">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-heading font-bold">Spark</h3>
+                            <p class="text-pink-400 text-xs font-medium tracking-widest uppercase mt-1">Intimate Moments</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/60 leading-relaxed mb-6">A polished single-page site that puts your event on the map. Perfect for moments that just need a beautiful home — fast.</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Best for</p>
+                <p class="text-sm text-white/70 mb-6 italic">Brand launches · gala dinners · weddings · single-day workshops · pop-ups</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">What's included</p>
+                <ul class="space-y-3 mb-8 flex-grow">
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Single-page event microsite (long-scroll, mobile-first)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Hero with key art + countdown timer</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> One-page program / schedule block</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Ticket / RSVP CTA (Eventbrite, Klook, Ticketflap)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Venue map + travel info</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> 1 photo gallery / hero video loop</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Sponsor logo strip</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Newsletter / waitlist capture</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Basic SEO + Google Analytics</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-pink-400 mt-0.5">✦</span> Hosting + 1 month post-launch support</li>
+                </ul>
+                <a href="#visualizer" class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 border border-pink-400/50 hover:border-pink-400 hover:bg-pink-500/10 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Visualize Spark</a>
+            </div>
+
+            <!-- SHOWCASE -->
+            <div class="group relative p-8 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-pink-500/5 backdrop-blur-sm border border-pink-500/40 rounded-3xl smooth-transition flex flex-col lg:-mt-4 pulse-glow">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full">
+                    <span class="text-white text-xs font-semibold tracking-wider uppercase">Most Popular</span>
+                </div>
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-heading font-bold">Showcase</h3>
+                            <p class="text-pink-300 text-xs font-medium tracking-widest uppercase mt-1">Full Festival Energy</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/70 leading-relaxed mb-6">A multi-page festival website that informs, converts, and excites. Lineup, schedule, FAQ, press kit — the works.</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Best for</p>
+                <p class="text-sm text-white/70 mb-6 italic">Music festivals · conferences · multi-day expos · art fairs · summits</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Everything in Spark, plus</p>
+                <ul class="space-y-3 mb-8 flex-grow">
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Multi-page architecture (Home · Lineup · Schedule · Info · Tickets · Press)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Filterable lineup grid (by day, stage, genre, track)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Interactive multi-day schedule</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Speaker / artist detail pages with bios + socials</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Ticket tier comparison (GA, VIP, early bird)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> FAQ accordion + travel & accommodation page</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Photo + video gallery with lightbox</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Sponsor showcase page with tiered placement</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Press / media kit page (downloadable assets)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Custom CMS for self-serve content updates</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> Meta pixel + retargeting setup</li>
+                    <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-pink-300 mt-0.5">★</span> 3 months post-launch support</li>
+                </ul>
+                <a href="#visualizer" class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Visualize Showcase</a>
+            </div>
+
+            <!-- SPECTACLE -->
+            <div class="group relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:border-purple-500/50 hover:bg-white/10 smooth-transition flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-heading font-bold">Spectacle</h3>
+                            <p class="text-purple-300 text-xs font-medium tracking-widest uppercase mt-1">Headline Production</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/60 leading-relaxed mb-6">The full digital ecosystem. Multi-stage, multi-language, real-time — built for events the world is watching.</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Best for</p>
+                <p class="text-sm text-white/70 mb-6 italic">Flagship festivals · international conferences · major brand spectacles</p>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Everything in Showcase, plus</p>
+                <ul class="space-y-3 mb-8 flex-grow">
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Custom interactive site map (multi-stage / multi-zone)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> "Build Your Schedule" — attendees curate their own lineup</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Real-time event-day updates (set changes, weather, alerts)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Multi-language (EN + 繁中 / 简中 standard for HK)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Embedded sponsor activations + interactive content</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Gated portals (Press · VIP · Artist)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Live blog / story stream during event</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Post-event recap microsite (after-movie, highlights, stats)</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Concierge chat widget integration</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> Custom organizer analytics dashboard</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> White-glove account management before, during, after</li>
+                    <li class="flex items-start gap-3 text-sm text-white/80"><span class="text-purple-300 mt-0.5">◆</span> 12 months support + post-event refresh</li>
+                </ul>
+                <a href="#showcase" class="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 border border-purple-400/50 hover:border-purple-400 hover:bg-purple-500/10 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">See Spectacle Showcase</a>
+            </div>
+        </div>
+
+        <p class="text-center text-white/40 text-sm mt-12 reveal">All tiers include the same team of nine specialists. Pricing on request.</p>
+    </div>
+</section>
+
+<!-- ============================= THE TEAM STANDARD ============================= -->
+<section id="team" class="py-24 md:py-32 px-6 lg:px-12 bg-white/[0.02] relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(236,72,153,0.06)_0%,transparent_60%)]"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full border border-pink-500/30 mb-6">
+                <span class="text-pink-400 text-sm font-medium tracking-wide">The Standard</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+                Every site, <span class="gradient-text">nine specialists deep.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+                Whether you're booking Spark or Spectacle, the same team of nine touches your event. That's the Event Lab standard.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 reveal">
+            <!-- 1 -->
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">01</span>
+                    <h3 class="font-heading font-bold text-lg">Events Expert</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Attendee journey mapping, run-of-show alignment, logistics intelligence.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">02</span>
+                    <h3 class="font-heading font-bold text-lg">Event Stylist</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Visual direction, mood boards, on-brand theming for the site.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">03</span>
+                    <h3 class="font-heading font-bold text-lg">Graphic Designer</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Key art, posters, social tiles, sponsor lockups.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">04</span>
+                    <h3 class="font-heading font-bold text-lg">Digital Artist</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Animated visuals, motion graphics, hero loops, interactive textures.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">05</span>
+                    <h3 class="font-heading font-bold text-lg">UX / UI Designer</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Information architecture, flow, mobile-first interface design.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">06</span>
+                    <h3 class="font-heading font-bold text-lg">Web Developer</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Build, performance, integrations (ticketing, maps, CMS).</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">07</span>
+                    <h3 class="font-heading font-bold text-lg">Copywriter</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Voice, microcopy, schedule descriptions, sponsor-friendly language.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">08</span>
+                    <h3 class="font-heading font-bold text-lg">PR Expert</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">Press kit page, media assets, embargo-ready content.</p>
+            </div>
+            <div class="group p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 hover:bg-white/10 smooth-transition">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-pink-400 font-heading font-bold text-2xl">09</span>
+                    <h3 class="font-heading font-bold text-lg">Digital Marketing Expert</h3>
+                </div>
+                <p class="text-white/60 text-sm leading-relaxed">SEO, pixel, lead capture, retargeting, post-event reporting.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= THE VISUALIZER ============================= -->
+<section id="visualizer" class="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.1)_0%,transparent_60%)]"></div>
+    <div class="absolute top-20 left-10 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px] float-slow"></div>
+    <div class="absolute bottom-20 right-10 w-64 h-64 bg-purple-500/10 rounded-full blur-[100px] float-slower"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full border border-pink-500/30 mb-6">
+                <span class="text-pink-400 text-sm font-medium tracking-wide">Available in all 3 tiers</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+                Meet the <span class="gradient-text">Visualizer.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+                Type in your event. See it live as an Event Lab site — before you sign anything. Toggle the tier to see how the experience scales.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8 reveal">
+            <!-- Controls -->
+            <div class="lg:col-span-2 p-6 md:p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl">
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-6">Step 1 · Tell us about your event</p>
+
+                <label class="block text-sm text-white/60 mb-2">Event name</label>
+                <input id="viz-name" type="text" value="Sunset Sessions" maxlength="40" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Tagline</label>
+                <input id="viz-tagline" type="text" value="Three nights on the harbour" maxlength="60" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Date</label>
+                <input id="viz-date" type="text" value="14–16 November 2026" maxlength="40" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-5">
+
+                <label class="block text-sm text-white/60 mb-2">Location</label>
+                <input id="viz-location" type="text" value="Central Harbourfront, Hong Kong" maxlength="60" class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:border-pink-400 focus:outline-none smooth-transition mb-6">
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-3">Step 2 · Pick a palette</p>
+                <div class="flex items-center gap-3 mb-6">
+                    <label class="viz-color-option">
+                        <input type="radio" name="viz-color" value="neon" checked>
+                        <span class="swatch block" style="background:linear-gradient(135deg,#ec4899,#a855f7)"></span>
+                    </label>
+                    <label class="viz-color-option">
+                        <input type="radio" name="viz-color" value="sunset">
+                        <span class="swatch block" style="background:linear-gradient(135deg,#fb923c,#ef4444)"></span>
+                    </label>
+                    <label class="viz-color-option">
+                        <input type="radio" name="viz-color" value="forest">
+                        <span class="swatch block" style="background:linear-gradient(135deg,#10b981,#14b8a6)"></span>
+                    </label>
+                    <label class="viz-color-option">
+                        <input type="radio" name="viz-color" value="royal">
+                        <span class="swatch block" style="background:linear-gradient(135deg,#3b82f6,#6366f1)"></span>
+                    </label>
+                    <label class="viz-color-option">
+                        <input type="radio" name="viz-color" value="gold">
+                        <span class="swatch block" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"></span>
+                    </label>
+                </div>
+
+                <p class="text-xs font-semibold tracking-widest uppercase text-pink-400 mb-3">Step 3 · Pick your tier</p>
+                <div class="tier-toggle grid grid-cols-3 gap-2 p-1 bg-black/40 border border-white/10 rounded-full mb-6">
+                    <input type="radio" name="viz-tier" id="tier-spark" value="spark">
+                    <label for="tier-spark" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Spark</label>
+                    <input type="radio" name="viz-tier" id="tier-showcase" value="showcase" checked>
+                    <label for="tier-showcase" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Showcase</label>
+                    <input type="radio" name="viz-tier" id="tier-spectacle" value="spectacle">
+                    <label for="tier-spectacle" class="text-center py-2 rounded-full text-xs tracking-widest uppercase font-semibold text-white/60">Spectacle</label>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Visualizer Preview" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Send this preview to my inbox</a>
+                    <a href="mailto:hello@dfbdigital.com?subject=Event Lab Discovery Call" class="block w-full text-center px-6 py-3 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold text-xs tracking-wider uppercase rounded-full smooth-transition">Book a Discovery Call</a>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="lg:col-span-3">
+                <div class="bg-black border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+                    <!-- Browser chrome -->
+                    <div class="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
+                        <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+                        <div class="ml-4 flex-1 max-w-md mx-auto bg-black/40 rounded-md px-3 py-1 text-xs text-white/40 text-center" id="viz-url">sunsetsessions.events</div>
+                    </div>
+
+                    <!-- Preview body -->
+                    <div class="relative min-h-[480px] md:min-h-[600px]" id="viz-preview">
+                        <!-- Tier badge -->
+                        <div class="absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-[10px] tracking-widest uppercase font-bold backdrop-blur-md" id="viz-tier-badge">Showcase Tier</div>
+
+                        <!-- Hero -->
+                        <div class="relative h-72 md:h-96 overflow-hidden" id="viz-hero">
+                            <div class="absolute inset-0" id="viz-hero-bg" style="background:linear-gradient(135deg,#ec4899,#a855f7); opacity:.85"></div>
+                            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1400" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" alt="">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                                <p class="text-white/80 text-xs md:text-sm tracking-widest uppercase mb-3" id="viz-preview-date">14–16 November 2026</p>
+                                <h3 class="text-3xl md:text-6xl font-heading font-bold text-white mb-3" id="viz-preview-name">Sunset Sessions</h3>
+                                <p class="text-white/80 text-sm md:text-base italic mb-4" id="viz-preview-tagline">Three nights on the harbour</p>
+                                <p class="text-white/60 text-xs md:text-sm" id="viz-preview-location">Central Harbourfront, Hong Kong</p>
+                                <button class="mt-6 px-5 py-2 bg-white text-black text-xs font-semibold tracking-widest uppercase rounded-full">Get Tickets</button>
+                            </div>
+                        </div>
+
+                        <!-- Conditional content -->
+                        <div class="p-6 md:p-8 space-y-6 bg-black">
+                            <!-- LINEUP (Showcase + Spectacle) -->
+                            <div id="viz-lineup">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Lineup</p>
+                                <div class="grid grid-cols-3 gap-2 md:gap-3">
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 01</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 02</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 03</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">Artist 04</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#ec4899,#a855f7)">Artist 05</div>
+                                    <div class="aspect-square rounded-xl flex items-center justify-center text-center text-white font-heading font-bold text-xs md:text-base p-2 opacity-80" style="background:linear-gradient(135deg,#a855f7,#ec4899)">+18 more</div>
+                                </div>
+                            </div>
+
+                            <!-- SCHEDULE (Showcase + Spectacle) -->
+                            <div id="viz-schedule">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">Saturday Schedule</p>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">17:00 · Sunset DJ</span>
+                                        <span class="text-white/40 text-xs">Skyline Stage</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">19:30 · Headliner Set</span>
+                                        <span class="text-white/40 text-xs">Harbour Stage</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg text-sm">
+                                        <span class="text-white/80">22:00 · After Hours</span>
+                                        <span class="text-white/40 text-xs">Lantern Stage</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SPECTACLE-ONLY FEATURES -->
+                            <div id="viz-spectacle-extras">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-purple-300 mb-3">Spectacle features</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Interactive site map</p>
+                                        <p class="text-white/50">3 stages · 12 zones · live nav</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Multi-language</p>
+                                        <p class="text-white/50">EN · 繁中 · 简中</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Real-time updates</p>
+                                        <p class="text-white/50">Set changes · weather · alerts</p>
+                                    </div>
+                                    <div class="p-3 bg-white/5 border border-purple-500/30 rounded-lg text-xs">
+                                        <p class="font-semibold text-white mb-1">Build your schedule</p>
+                                        <p class="text-white/50">Personal lineup, calendar sync</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SPARK-ONLY MINIMAL -->
+                            <div id="viz-spark-minimal">
+                                <p class="text-xs font-semibold tracking-widest uppercase text-white/40 mb-3">A single, focused page</p>
+                                <p class="text-white/60 text-sm leading-relaxed">Spark keeps things deliberately tight: hero, program, tickets, sponsors, gallery — one beautiful long-scroll. Perfect for intimate moments that don't need a multi-page architecture.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-white/40 text-xs mt-4">Preview rendered live · all data is yours, none is saved.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= NEON HARBOUR SHOWCASE ============================= -->
+<section id="showcase" class="relative">
+    <!-- Banner Hero -->
+    <div class="relative skyline min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
+
+        <!-- Floating language switcher -->
+        <div class="absolute top-28 right-6 md:right-12 z-10 flex items-center gap-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 p-1">
+            <button class="px-3 py-1 text-xs rounded-full bg-white text-black font-semibold">EN</button>
+            <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">繁中</button>
+            <button class="px-3 py-1 text-xs rounded-full text-white/60 hover:text-white smooth-transition font-tc">简中</button>
+        </div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center pt-20 pb-20">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
+                <span class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
+                <span class="text-white/80 text-sm font-medium tracking-wide">Event Lab Spectacle Showcase</span>
+            </div>
+            <p class="text-pink-300 font-tc text-lg md:text-xl tracking-[0.3em] uppercase mb-4">霓 虹 港 灣</p>
+            <h2 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-extrabold leading-none mb-6">
+                <span class="block text-white">NEON</span>
+                <span class="block gradient-text">HARBOUR</span>
+            </h2>
+            <p class="text-white/70 text-base md:text-xl tracking-[0.2em] uppercase mb-8">A 3-Day Music & Arts Festival</p>
+            <p class="text-white/60 text-lg md:text-xl mb-12 max-w-2xl mx-auto">14 — 16 November 2026 · Central Harbourfront · Hong Kong</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <button class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition hover:scale-105">Get Tickets</button>
+                <button class="px-8 py-4 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition">See the Lineup</button>
+            </div>
+
+            <!-- Countdown -->
+            <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-days">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Days</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-hours">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Hours</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-mins">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Mins</p>
+                </div>
+                <div class="p-3 md:p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                    <p class="text-2xl md:text-4xl font-heading font-bold text-white" id="cd-secs">—</p>
+                    <p class="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mt-1">Secs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Showcase context bar -->
+    <div class="bg-black/60 backdrop-blur-md border-y border-white/10 py-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-3 text-sm">
+            <p class="text-white/40">
+                <span class="text-pink-400 font-semibold">Showcase Demo:</span>
+                A fictional Hong Kong festival concept demonstrating the Event Lab Spectacle tier.
+            </p>
+            <p class="text-white/30 text-xs tracking-widest uppercase">Built by Event Lab · for demonstration only</p>
+        </div>
+    </div>
+
+    <!-- Stages -->
+    <div class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Three Stages</p>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold">Skyline. Harbour. <span class="gradient-text">Lantern.</span></h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Main Stage</p>
+                        <h4 class="text-3xl font-heading font-bold mb-2">Skyline</h4>
+                        <p class="text-white/70 text-sm">Headliners and international acts, facing Victoria Harbour.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Electronic</p>
+                        <h4 class="text-3xl font-heading font-bold mb-2">Harbour</h4>
+                        <p class="text-white/70 text-sm">House, techno, and drum &amp; bass — running till 02:00.</p>
+                    </div>
+                </div>
+                <div class="group relative aspect-poster rounded-3xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=900" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6">
+                        <p class="text-pink-300 text-xs tracking-widest uppercase mb-2">Acoustic &amp; Arts</p>
+                        <h4 class="text-3xl font-heading font-bold mb-2">Lantern</h4>
+                        <p class="text-white/70 text-sm">Sundown sessions, spoken word, and local art installations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lineup marquee -->
+    <div class="py-16 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 overflow-hidden border-y border-white/10">
+        <div class="text-center mb-8 px-6">
+            <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">2026 Lineup</p>
+            <h3 class="text-3xl md:text-4xl font-heading font-bold">Phase 1 announced</h3>
+        </div>
+        <div class="marquee-track gap-6 md:gap-10 text-3xl md:text-5xl font-heading font-extrabold">
+            <span class="text-white">SAINT TANG</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span>
+            <span class="text-pink-400">·</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="text-white">SAINT TANG</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">KOWLOON KIDS</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">海邊的瑪嘉烈</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">NEON RIVER</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">DJ TYPHOON</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">VELVET KING</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">電光少女</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">PIER 8 COLLECTIVE</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white">MIDNIGHT JUNK</span>
+            <span class="text-pink-400">·</span>
+            <span class="text-white/60">CHA CHAAN ORCHESTRA</span>
+            <span class="text-pink-400">·</span>
+        </div>
+    </div>
+
+    <!-- Schedule preview -->
+    <div class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Daily Schedule</p>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6">Three nights. <span class="gradient-text">One harbour.</span></h3>
+                <div class="inline-flex bg-white/5 border border-white/10 rounded-full p-1 text-xs tracking-widest uppercase font-semibold">
+                    <button class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white">Fri</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sat</button>
+                    <button class="px-5 py-2 rounded-full text-white/60 hover:text-white smooth-transition">Sun</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Skyline Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">Neon River</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">電光少女</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Kowloon Kids</span></li>
+                        <li class="flex justify-between"><span class="text-white/60 font-semibold">21:30</span><span class="text-pink-400 font-semibold">Saint Tang ★</span></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Harbour Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">16:30</span><span class="text-white">Pier 8 Collective</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:00</span><span class="text-white">DJ Typhoon</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Midnight Junk</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">22:00</span><span class="text-white">Velvet King</span></li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">Lantern Stage</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-white/60">17:00</span><span class="text-white">海邊的瑪嘉烈</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">18:30</span><span class="text-white">Cha Chaan Orchestra</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">20:00</span><span class="text-white">Open Mic Hour</span></li>
+                        <li class="flex justify-between"><span class="text-white/60">21:30</span><span class="text-white">Lantern Closing</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tickets -->
+    <div class="py-24 px-6 lg:px-12 bg-gradient-to-b from-brand-black via-black to-brand-black relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.08)_0%,transparent_60%)]"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Tickets</p>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold mb-4">Pick your <span class="gradient-text">pass.</span></h3>
+                <p class="text-white/60">Phase 1 pricing — ends 30 June 2026.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-pink-500/50 smooth-transition">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$880</p>
+                    <p class="text-white/40 text-xs mb-6">Single day · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>✓ All three stages</li>
+                        <li>✓ Festival map</li>
+                        <li>✓ Free water refills</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-white/20 hover:border-pink-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get Day Pass</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-pink-500/15 to-purple-500/10 border border-pink-500/40 rounded-2xl relative">
+                    <span class="absolute -top-3 right-4 px-3 py-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-[10px] font-bold tracking-widest uppercase">Best Value</span>
+                    <p class="text-pink-300 text-xs tracking-widest uppercase mb-3">3-Day Pass</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$1,980</p>
+                    <p class="text-white/50 text-xs mb-6">All three nights · early bird</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>✓ All three days, all stages</li>
+                        <li>✓ Festival map + welcome kit</li>
+                        <li>✓ Free water refills</li>
+                        <li>✓ Re-entry privileges</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs uppercase tracking-widest font-semibold rounded-full smooth-transition">Get 3-Day Pass</button>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-purple-500/50 smooth-transition">
+                    <p class="text-purple-300 text-xs tracking-widest uppercase mb-3">VIP Lounge</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$4,800</p>
+                    <p class="text-white/40 text-xs mb-6">3 days · elevated</p>
+                    <ul class="space-y-2 text-xs text-white/70 mb-6">
+                        <li>✓ Everything in 3-Day Pass</li>
+                        <li>✓ Harbour-view VIP deck</li>
+                        <li>✓ Open bar (selected hours)</li>
+                        <li>✓ Dedicated entrance</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-purple-400/50 hover:border-purple-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Get VIP</button>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border border-amber-500/40 rounded-2xl">
+                    <p class="text-amber-300 text-xs tracking-widest uppercase mb-3">Junk + Festival</p>
+                    <p class="text-4xl font-heading font-bold mb-1">HK$8,800</p>
+                    <p class="text-white/50 text-xs mb-6">Festival + harbour cruise</p>
+                    <ul class="space-y-2 text-xs text-white/80 mb-6">
+                        <li>✓ Everything in VIP</li>
+                        <li>✓ Pre-show junk boat cruise</li>
+                        <li>✓ Dinner + open bar</li>
+                        <li>✓ Limited to 60 guests</li>
+                    </ul>
+                    <button class="w-full px-4 py-2 border border-amber-400/50 hover:border-amber-400 text-white text-xs uppercase tracking-widest rounded-full smooth-transition">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practical info -->
+    <div class="py-24 px-6 lg:px-12 bg-brand-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Know Before You Go</p>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold">The <span class="gradient-text">essentials.</span></h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">MTR</p>
+                    <p class="font-heading font-bold text-lg mb-1">Hong Kong Station</p>
+                    <p class="text-white/50 text-sm">Exit A2 · 8 minute walk along the promenade.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">ID</p>
+                    <p class="font-heading font-bold text-lg mb-1">18+ after 22:00</p>
+                    <p class="text-white/50 text-sm">Harbour Stage only. HKID or passport.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Food Street</p>
+                    <p class="font-heading font-bold text-lg mb-1">12 dai pai dong</p>
+                    <p class="text-white/50 text-sm">Cash and Octopus accepted at every stall.</p>
+                </div>
+                <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <p class="text-pink-400 text-xs tracking-widest uppercase mb-3">Weather</p>
+                    <p class="font-heading font-bold text-lg mb-1">Rain or shine</p>
+                    <p class="text-white/50 text-sm">Live updates pushed to the site on event day.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sponsors -->
+    <div class="py-16 px-6 lg:px-12 bg-black/40 border-y border-white/10">
+        <p class="text-center text-pink-400 text-xs tracking-widest uppercase mb-8">Partners & Sponsors (Placeholder)</p>
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">BRAND</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">LOGO</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">PARTNER</div>
+            <div class="aspect-[3/1] bg-white/5 border border-white/10 rounded-lg flex items-center justify-center text-white/30 text-xs tracking-widest font-bold">SPONSOR</div>
+        </div>
+    </div>
+
+    <!-- Back to Event Lab -->
+    <div class="py-16 px-6 lg:px-12 text-center bg-brand-black">
+        <p class="text-white/40 text-sm mb-4">↑ That entire experience above is one Event Lab Spectacle build.</p>
+        <a href="#tiers" class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 text-sm font-semibold tracking-wider uppercase smooth-transition">
+            Compare it to Spark and Showcase
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </a>
+    </div>
+</section>
+
+<!-- ============================= CTA (kept from EventLab.tsx) ============================= -->
+<section class="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden">
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover opacity-30" alt="Event background">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/90 to-brand-black/70"></div>
+    </div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+        <h2 class="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
+            Ready to Create Something <span class="gradient-text">Unforgettable</span>?
+        </h2>
+        <p class="text-xl text-white/60 mb-12 max-w-2xl mx-auto">
+            Let's discuss your vision and bring it to life with precision and creativity.
+        </p>
+        <a href="mailto:hello@dfbdigital.com?subject=Event Lab Inquiry" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold text-sm tracking-wider uppercase rounded-full smooth-transition group">
+            <span>Get in Touch</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 smooth-transition"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+    </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="py-10 px-6 border-t border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-heading font-bold text-white text-xs">EL</div>
+            <span class="font-heading font-bold text-white/70">Event Lab</span>
+            <span class="text-white/30 text-xs uppercase tracking-widest">by DFB Digital</span>
+        </div>
+        <p class="text-white/30 text-sm">&copy; 2026 DFB Digital. All rights reserved.</p>
+        <a href="mailto:hello@dfbdigital.com" class="text-white/50 hover:text-white text-sm smooth-transition">hello@dfbdigital.com</a>
+    </div>
+</footer>
+
+<!-- ============================= SCRIPTS ============================= -->
+<script>
+(function() {
+    // ---- Visualizer interactivity ----
+    const palettes = {
+        neon:    { a:'#ec4899', b:'#a855f7' },
+        sunset:  { a:'#fb923c', b:'#ef4444' },
+        forest:  { a:'#10b981', b:'#14b8a6' },
+        royal:   { a:'#3b82f6', b:'#6366f1' },
+        gold:    { a:'#fbbf24', b:'#f59e0b' },
+    };
+    const slug = s => (s||'event').toLowerCase().replace(/[^a-z0-9]+/g,'').slice(0,24) || 'event';
+
+    function renderViz() {
+        const name = document.getElementById('viz-name').value || 'Your Event';
+        const tagline = document.getElementById('viz-tagline').value || '';
+        const date = document.getElementById('viz-date').value || '';
+        const location = document.getElementById('viz-location').value || '';
+        const color = document.querySelector('input[name="viz-color"]:checked').value;
+        const tier = document.querySelector('input[name="viz-tier"]:checked').value;
+        const p = palettes[color];
+
+        document.getElementById('viz-preview-name').textContent = name;
+        document.getElementById('viz-preview-tagline').textContent = tagline;
+        document.getElementById('viz-preview-date').textContent = date;
+        document.getElementById('viz-preview-location').textContent = location;
+        document.getElementById('viz-url').textContent = slug(name) + '.events';
+
+        // Background swap
+        document.getElementById('viz-hero-bg').style.background = `linear-gradient(135deg, ${p.a}, ${p.b})`;
+
+        // Recolor swatches in lineup
+        document.querySelectorAll('#viz-lineup .aspect-square').forEach((el,i) => {
+            el.style.background = (i%2===0)
+                ? `linear-gradient(135deg, ${p.a}, ${p.b})`
+                : `linear-gradient(135deg, ${p.b}, ${p.a})`;
+        });
+
+        // Tier visibility
+        const lineup = document.getElementById('viz-lineup');
+        const schedule = document.getElementById('viz-schedule');
+        const spectacle = document.getElementById('viz-spectacle-extras');
+        const sparkMin = document.getElementById('viz-spark-minimal');
+        const badge = document.getElementById('viz-tier-badge');
+
+        if (tier === 'spark') {
+            lineup.style.display = 'none';
+            schedule.style.display = 'none';
+            spectacle.style.display = 'none';
+            sparkMin.style.display = 'block';
+            badge.textContent = 'Spark Tier';
+            badge.style.background = `linear-gradient(90deg, ${p.a}, ${p.b})`;
+            badge.style.color = '#fff';
+        } else if (tier === 'showcase') {
+            lineup.style.display = 'block';
+            schedule.style.display = 'block';
+            spectacle.style.display = 'none';
+            sparkMin.style.display = 'none';
+            badge.textContent = 'Showcase Tier';
+            badge.style.background = `linear-gradient(90deg, ${p.a}, ${p.b})`;
+            badge.style.color = '#fff';
+        } else {
+            lineup.style.display = 'block';
+            schedule.style.display = 'block';
+            spectacle.style.display = 'block';
+            sparkMin.style.display = 'none';
+            badge.textContent = 'Spectacle Tier';
+            badge.style.background = `linear-gradient(90deg, ${p.a}, ${p.b})`;
+            badge.style.color = '#fff';
+        }
+    }
+
+    document.querySelectorAll('#viz-name, #viz-tagline, #viz-date, #viz-location').forEach(el => {
+        el.addEventListener('input', renderViz);
+    });
+    document.querySelectorAll('input[name="viz-color"], input[name="viz-tier"]').forEach(el => {
+        el.addEventListener('change', renderViz);
+    });
+    renderViz();
+
+    // ---- Countdown to Neon Harbour (14 Nov 2026) ----
+    const target = new Date('2026-11-14T17:00:00+08:00').getTime();
+    function tick() {
+        const now = Date.now();
+        let diff = Math.max(0, target - now);
+        const d = Math.floor(diff / (1000*60*60*24)); diff -= d * 1000*60*60*24;
+        const h = Math.floor(diff / (1000*60*60));    diff -= h * 1000*60*60;
+        const m = Math.floor(diff / (1000*60));       diff -= m * 1000*60;
+        const s = Math.floor(diff / 1000);
+        document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+        document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+        document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+        document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // ---- Scroll reveal ----
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ---- Smooth anchor scrolling offset for fixed nav ----
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const id = a.getAttribute('href').slice(1);
+            const target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+            const y = target.getBoundingClientRect().top + window.scrollY - 70;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
